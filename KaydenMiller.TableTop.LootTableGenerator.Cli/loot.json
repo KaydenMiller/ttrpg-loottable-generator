@@ -18,7 +18,14 @@
     {
       "id": "workshop",
       "name": "Workshop",
-      "availableLoot": []
+      "availableLoot": [
+        {
+          "id": "hammer",
+          "name": "Hammer",
+          "minQuantity": 1,
+          "maxQuantity": 2
+        }
+      ]
     }
   ],
   "modifiers": [
@@ -34,6 +41,13 @@
       "maxQuantityModifier": 2,
       "minQuantityModifier": 1,
       "quantityMultiplier": 1.5
+    },
+    {
+      "id": "scarce",
+      "name": "Scarce",
+      "maxQuantityModifier": -2,
+      "minQuantityModifier": -1,
+      "quantityMultiplier": 0.5
     }
   ]
 }
