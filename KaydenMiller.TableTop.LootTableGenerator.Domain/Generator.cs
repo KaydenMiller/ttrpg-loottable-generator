@@ -63,7 +63,6 @@ public class Generator : ILootable
         {
             Id = "ruin",
             Name = "Ruin",
-            MaxQuantityModifier = 0,
             DifficultyClassModifier = 5
         },
         new Modifier()
@@ -71,7 +70,8 @@ public class Generator : ILootable
             Id = "abundant",
             Name = "Abundant",
             MaxQuantityModifier = 2,
-            DifficultyClassModifier = 0
+            MinQuantityModifier = 1,
+            QuantityMultiplier = 1.5f,
         }
     };
     
@@ -102,8 +102,12 @@ public class Generator : ILootable
             foreach (var modifier in selectedModifiers)
             {
                 loot.DifficultyClass += modifier.DifficultyClassModifier;
+                loot.DifficultyClass = (int)MathF.Ceiling(loot.DifficultyClass * modifier.DifficultyClassMultiplier);
+                
                 loot.MinQuantity += modifier.MinQuantityModifier;
                 loot.MaxQuantity += modifier.MaxQuantityModifier;
+                loot.MinQuantity *= (int)MathF.Ceiling(loot.MinQuantity * modifier.QuantityMultiplier);
+                loot.MaxQuantity *= (int)MathF.Ceiling(loot.MaxQuantity * modifier.QuantityMultiplier);
             }  
         }
 

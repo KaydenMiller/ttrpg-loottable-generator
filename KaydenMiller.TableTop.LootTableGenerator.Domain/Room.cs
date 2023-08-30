@@ -26,6 +26,8 @@ public class Modifier
     public string Id { get; set; }
     public string Name { get; set; }
     public int DifficultyClassModifier { get; set; } = 0;
+    public float DifficultyClassMultiplier { get; set; } = 1;
     public int MinQuantityModifier { get; set; } = 0;
     public int MaxQuantityModifier { get; set; } = 0;
+    public float QuantityMultiplier { get; set; } = 1;
 }

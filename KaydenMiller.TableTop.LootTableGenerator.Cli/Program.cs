@@ -1,6 +1,13 @@
 ﻿using KaydenMiller.TableTop.LootTableGenerator.Domain;
 
-var input = "elven.workshop:abundant.ruin";
+var input = Console.ReadLine();
+
+if (string.IsNullOrWhiteSpace(input))
+{
+    Console.WriteLine("Error: Invalid input, was empty");
+    Environment.Exit(1);
+}
+
 var keyResult = RoomKey.Create(input);
 
 if (keyResult.IsError)

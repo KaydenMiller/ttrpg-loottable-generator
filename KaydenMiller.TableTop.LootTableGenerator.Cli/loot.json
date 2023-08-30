@@ -1,0 +1,39 @@
+﻿{
+  "rooms": [
+    {
+      "id": "elven",
+      "name": "Elven",
+      "availableLoot": [
+        {
+          "id": "food",
+          "name": "Food",
+          "maxQuantity": 10
+        },
+        {
+          "id": "sword",
+          "name": "Sword"
+        }
+      ]
+    },
+    {
+      "id": "workshop",
+      "name": "Workshop",
+      "availableLoot": []
+    }
+  ],
+  "modifiers": [
+    {
+      "id": "ruin",
+      "name": "Ruin",
+      "difficultyClassModifier": 5,
+      "maxQuantityModifier": 0
+    },
+    {
+      "id": "abundant",
+      "name": "Abundant",
+      "maxQuantityModifier": 2,
+      "minQuantityModifier": 1,
+      "quantityMultiplier": 1.5
+    }
+  ]
+}
