@@ -2,14 +2,12 @@
 
 namespace KaydenMiller.TableTop.LootTableGenerator.Domain.DescriptorAggregate;
 
-public class Descriptor : Entity 
+public class Descriptor : Entity
 {
-    private readonly string _code;
-    private readonly string _name;
-    private readonly IEnumerable<Guid> _availableLootIds;
-    private readonly IEnumerable<Guid> _modifierIds;
+    private readonly List<Guid> _availableLootIds = new();
+    private readonly List<Guid> _modifierIds = new();
 
-    public Descriptor(Guid id) : base(id)
+    public Descriptor(Guid? id = null) : base(id ?? Guid.NewGuid())
     {
     }
 }

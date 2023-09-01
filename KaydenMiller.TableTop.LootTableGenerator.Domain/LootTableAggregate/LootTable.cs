@@ -5,11 +5,10 @@ namespace KaydenMiller.TableTop.LootTableGenerator.Domain.RoomAggregate;
 
 public class LootTable : AggregateRoot
 {
-    private readonly LootTableCode _code;
     private readonly IEnumerable<Guid> _descriptorIds;
     private readonly IEnumerable<Guid> _modifierIds;
     
-    public LootTable(Guid id) : base(id)
+    public LootTable(Guid? id = null) : base(id ?? Guid.NewGuid())
     {
     }
 }

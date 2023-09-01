@@ -8,14 +8,12 @@ public static class LootFactory
 {
     public static ErrorOr<Loot> CreateLoot(
         Guid? id = null,
-        string? code = null,
         string? name = null,
         Percentage? rarity = null,
         int? minQuantity = null,
         int? maxQuantity = null)
     {
         return Loot.Create(
-            code ?? TestConstants.Constants.Loot.Code,
             name ?? TestConstants.Constants.Loot.Name,
             rarity ?? TestConstants.Constants.Loot.Rarity,
             minQuantity ?? TestConstants.Constants.Loot.MinQuantity,
