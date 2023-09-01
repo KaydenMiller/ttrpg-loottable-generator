@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaydenMiller.TableTop.LootT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaydenMiller.TableTob.LootTableGenerator.Site", "KaydenMiller.TableTob.LootTableGenerator.Site\KaydenMiller.TableTob.LootTableGenerator.Site.csproj", "{A6022023-8101-4916-A9DE-431E3D0CA7D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaydenMiller.TableTop.LootTableGenerator.Infrastructure", "KaydenMiller.TableTop.LootTableGenerator.Infrastructure\KaydenMiller.TableTop.LootTableGenerator.Infrastructure.csproj", "{036D02F2-79F5-45A5-A340-4E9436315C83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{A6022023-8101-4916-A9DE-431E3D0CA7D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6022023-8101-4916-A9DE-431E3D0CA7D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6022023-8101-4916-A9DE-431E3D0CA7D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{036D02F2-79F5-45A5-A340-4E9436315C83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{036D02F2-79F5-45A5-A340-4E9436315C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{036D02F2-79F5-45A5-A340-4E9436315C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{036D02F2-79F5-45A5-A340-4E9436315C83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

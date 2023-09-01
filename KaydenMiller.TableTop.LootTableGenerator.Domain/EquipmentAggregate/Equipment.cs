@@ -4,15 +4,19 @@ namespace KaydenMiller.TableTop.LootTableGenerator.Domain.EquipmentAggregate;
 
 public class Equipment : AggregateRoot
 {
-    private readonly string _code;
-    private readonly string _name;
-    
+    public string Code { get; }
+    public string Name { get; }
+
+    private Equipment()
+    {
+    }
+
     public Equipment(
         string code,
         string name,
         Guid? id = null) : base(id ?? Guid.NewGuid())
     {
-        _code = code;
-        _name = name;
+        Code = code;
+        Name = name;
     }
 }

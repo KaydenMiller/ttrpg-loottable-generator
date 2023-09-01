@@ -26,8 +26,7 @@ Food
 
 ## Loot Table Invariants
 - Must contain a valid code that represents a list of descriptors and modifiers that can be used to generate the table
-- Must contain at least one descriptor
-
+- Cannot generate loot table without at least one descriptor
 
 # Examples
 `Elven.Ancient:Bakery(Food: Apple,Bread;SimpleWeapon: Dagger).Ruin::Abundant`
