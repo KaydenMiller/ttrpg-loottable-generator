@@ -2,9 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaydenMiller.TableTop.LootTableGenerator.Domain", "KaydenMiller.TableTop.LootTableGenerator.Domain\KaydenMiller.TableTop.LootTableGenerator.Domain.csproj", "{E5D04794-4411-4D36-B3E7-649602EB3102}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaydenMiller.TableTop.LootTableGenerator.Cli", "KaydenMiller.TableTop.LootTableGenerator.Cli\KaydenMiller.TableTop.LootTableGenerator.Cli.csproj", "{DA4B9CA6-59E8-48B8-877D-647ADD03E14D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit", "KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit\KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.csproj", "{A09A8E35-8686-435E-9B95-027BE4BCDAAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaydenMiller.TableTob.LootTableGenerator.Site", "KaydenMiller.TableTob.LootTableGenerator.Site\KaydenMiller.TableTob.LootTableGenerator.Site.csproj", "{A6022023-8101-4916-A9DE-431E3D0CA7D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,13 +16,13 @@ Global
 		{E5D04794-4411-4D36-B3E7-649602EB3102}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5D04794-4411-4D36-B3E7-649602EB3102}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5D04794-4411-4D36-B3E7-649602EB3102}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA4B9CA6-59E8-48B8-877D-647ADD03E14D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA4B9CA6-59E8-48B8-877D-647ADD03E14D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA4B9CA6-59E8-48B8-877D-647ADD03E14D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA4B9CA6-59E8-48B8-877D-647ADD03E14D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A09A8E35-8686-435E-9B95-027BE4BCDAAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A09A8E35-8686-435E-9B95-027BE4BCDAAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A09A8E35-8686-435E-9B95-027BE4BCDAAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A09A8E35-8686-435E-9B95-027BE4BCDAAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6022023-8101-4916-A9DE-431E3D0CA7D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6022023-8101-4916-A9DE-431E3D0CA7D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6022023-8101-4916-A9DE-431E3D0CA7D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6022023-8101-4916-A9DE-431E3D0CA7D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

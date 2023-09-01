@@ -1,4 +1,5 @@
 using FluentAssertions;
+using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects;
 
 namespace KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit;
 
@@ -11,7 +12,7 @@ public class RoomDecoderTests
     public void GivenValidRoomKey_WhenContainingOneRoom_ShouldParse(string roomKeyValue)
     {
         // Arrange
-        var result = RoomKey.Create(roomKeyValue);
+        var result = LootTableCode.Create(roomKeyValue);
 
         if (result.IsError)
         {
@@ -36,7 +37,7 @@ public class RoomDecoderTests
     public void GivenValidRoomKey_WhenContainingMultipleRooms_ShouldParse(string roomKeyValue, params string[] parts)
     {
         // Arrange
-        var result = RoomKey.Create(roomKeyValue);
+        var result = LootTableCode.Create(roomKeyValue);
 
         if (result.IsError)
         {
@@ -56,7 +57,7 @@ public class RoomDecoderTests
     {
         // Arrange
         var expected = parts.Zip(modifiers);
-        var result = RoomKey.Create(roomKeyValue);
+        var result = LootTableCode.Create(roomKeyValue);
 
         if (result.IsError)
         {
@@ -76,7 +77,7 @@ public class RoomDecoderTests
     {
         // Arrange
         var expected = parts.Zip(modifiers);
-        var result = RoomKey.Create(roomKeyValue);
+        var result = LootTableCode.Create(roomKeyValue);
 
         if (result.IsError)
         {
@@ -96,7 +97,7 @@ public class RoomDecoderTests
     {
         // Arrange
         var expected = parts.Zip(modifiers);
-        var result = RoomKey.Create(roomKeyValue);
+        var result = LootTableCode.Create(roomKeyValue);
 
         if (result.IsError)
         {

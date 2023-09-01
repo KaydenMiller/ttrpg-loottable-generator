@@ -1,10 +1,12 @@
-﻿namespace KaydenMiller.TableTop.LootTableGenerator.Domain;
+﻿using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects;
+
+namespace KaydenMiller.TableTop.LootTableGenerator.Domain;
 
 public static class RoomKeyDecoder
 {
-    public static IEnumerable<KeyStage> Decode(RoomKey roomKey)
+    public static IEnumerable<KeyStage> Decode(LootTableCode lootTableCode)
     {
-        var groups = RoomKey.KeyFormat.Match(roomKey.Value);
+        var groups = LootTableCode.KeyFormat.Match(lootTableCode.Value);
         var roomGroup = groups.Groups.Values.ToList()[2];
         var modifierGroup = groups.Groups.Values.ToList()[5];
 
