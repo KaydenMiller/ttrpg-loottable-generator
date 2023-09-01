@@ -1,0 +1,52 @@
+﻿@page "/descriptors"
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.DescriptorAggregate
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.ModifierAggregate
+@using Throw
+@inject IDescriptorRepository DescriptorRepository
+
+<h3>Descriptors</h3>
+
+
+
+<EditForm Model="@Model" OnSubmit="@Submit">
+    <label>Loot Id</label>
+    <InputText @bind-Value="Model!.LootId"></InputText>
+    @* <button @onclick="AddLoot()"></button> *@
+</EditForm>
+
+@code {
+    public CreateDescriptorForm? Model { get; set; }
+    public List<LootItem> LootToAdd { get; set; } = new();
+    public List<Modifier> ModifiersToAdd { get; set; } = new();
+
+    protected override void OnInitialized() => Model ??= new();
+
+    private async Task AddLoot(Guid lootId)
+    {
+        // LootToAdd.Add();
+    }
+
+    private async Task Submit()
+    {
+        Model.ThrowIfNull();
+        Model.LootId.ThrowIfNull();
+
+        var descriptor = new Descriptor();
+
+        foreach (var item in LootToAdd)
+        {
+            // descriptor.AddLoot(item);
+            
+        }
+
+        // await DescriptorRepository.AddDescriptorAsync();
+    }
+
+    public class CreateDescriptorForm
+    {
+        public string LootId { get; set; }
+    }
+
+}

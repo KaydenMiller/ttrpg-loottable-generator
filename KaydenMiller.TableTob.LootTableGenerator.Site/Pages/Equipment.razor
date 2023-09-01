@@ -1,0 +1,41 @@
+﻿@page "/equipment"
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
+@using Throw
+@inject IEquipmentRepository EquipmentRepository
+
+
+<h3>Equipment</h3>
+
+<EditForm Model="@Model" OnSubmit="@Submit">
+    <label>Code</label>
+    <InputText @bind-Value="Model!.Code"></InputText>
+    
+    <label>Name</label>
+    <InputText @bind-Value="Model!.Name"></InputText>
+    
+    <button type="submit">Create</button>
+</EditForm>
+
+@code {
+    public CreateEquipmentForm? Model { get; set; }
+
+    protected override void OnInitialized() => Model ??= new();
+
+    private async Task Submit()
+    {
+        Model.ThrowIfNull();
+        Model?.Code.ThrowIfNull();
+        Model?.Name.ThrowIfNull();
+
+        await EquipmentRepository.AddEquipmentAsync(new TableTop.LootTableGenerator.Domain.EquipmentAggregate.Equipment(
+            Model!.Code,
+            Model.Name
+            ));
+    }
+
+    public class CreateEquipmentForm 
+    {
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+}

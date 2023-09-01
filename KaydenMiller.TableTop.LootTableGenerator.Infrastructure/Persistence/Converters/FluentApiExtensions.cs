@@ -25,4 +25,11 @@ public static class FluentApiExtensions
             new HashOfIdsConverter(),
             new HashOfIdsComparer());
     }
+
+    public static PropertyBuilder<T> HasPercentageConverter<T>(this PropertyBuilder<T> propertyBuilder)
+    {
+        return propertyBuilder.HasConversion(
+            new PercentageConverter(),
+            new PercentageComparer());
+    }
 }

@@ -5,4 +5,5 @@ namespace KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces;
 public interface IDescriptorRepository
 {
     Task AddDescriptorAsync(Descriptor descriptor);
+    Task UpdateDescriptorAsync(Descriptor descriptor);
 }

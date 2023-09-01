@@ -1,4 +1,6 @@
-﻿using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate;
+﻿using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects;
+using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate;
+using KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Persistence.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,6 +15,10 @@ public class LootConfiguration : IEntityTypeConfiguration<Loot>
         builder.Property(l => l.Id)
            .ValueGeneratedNever();
 
+        builder.Property<Percentage>("_rarity")
+          .HasColumnName("RarityPercentage")
+          .HasPercentageConverter()
+           .HasDefaultValue(Percentage.FromFloat(0.5f).Value);
         builder.Property<Guid>("_equipmentId")
            .HasColumnName("EquipmentId");
         builder.Property<string>("_name")

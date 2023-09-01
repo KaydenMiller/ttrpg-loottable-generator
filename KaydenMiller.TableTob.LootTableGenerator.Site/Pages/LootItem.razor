@@ -1,0 +1,57 @@
+﻿@page "/loot-item"
+@using Throw
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate
+@inject ILootRepository LootRepository
+
+<h3>Loot</h3>
+
+<EditForm Model="@LootFormModel" OnSubmit="@Submit">
+    <label>Equipment ID</label>
+    <InputText @bind-Value="LootFormModel!.EquipmentId"></InputText>
+    <label>Loot Name</label>
+    <InputText @bind-Value="LootFormModel!.Name"></InputText>
+    <label>Percentage Rarity</label>
+    <InputNumber @bind-Value="LootFormModel!.Rarity"></InputNumber>
+    <label>Min Quantity</label>
+    <InputNumber @bind-Value="LootFormModel!.MinQuantity"></InputNumber>
+    <label>Max Quantity</label>
+    <InputNumber @bind-Value="LootFormModel!.MaxQuantity"></InputNumber>
+    
+    <button type="submit">Create</button>
+</EditForm>
+
+@code {
+    public CreateLootForm? LootFormModel { get; set; }
+
+    protected override void OnInitialized()
+    {
+        LootFormModel ??= new();
+    }
+
+    private async Task Submit()
+    {
+        LootFormModel.ThrowIfNull();
+
+        var percentResult = Percentage.FromInt(LootFormModel.Rarity);
+        var lootResult = Loot.Create(
+            Guid.Parse(LootFormModel.EquipmentId),
+            LootFormModel.Name,
+            percentResult.Value,
+            LootFormModel.MinQuantity,
+            LootFormModel.MaxQuantity,
+            null
+            );
+        await LootRepository.CreateLoot(lootResult.Value);
+    }
+
+    public class CreateLootForm
+    {
+        public string EquipmentId { get; set; }
+        public string Name { get; set; }
+        public int Rarity { get; set; }
+        public int MaxQuantity { get; set; }
+        public int MinQuantity { get; set; }
+    }
+}

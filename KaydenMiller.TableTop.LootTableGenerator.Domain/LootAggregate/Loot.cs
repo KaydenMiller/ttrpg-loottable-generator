@@ -1,7 +1,6 @@
 using ErrorOr;
 using KaydenMiller.TableTop.LootTableGenerator.Domain.Common;
 using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects;
-using KaydenMiller.TableTop.LootTableGenerator.Domain.RoomAggregate;
 using Throw;
 
 namespace KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate;
