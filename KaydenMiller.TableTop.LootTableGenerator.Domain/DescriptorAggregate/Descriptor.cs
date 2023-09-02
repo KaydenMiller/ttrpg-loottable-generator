@@ -7,7 +7,8 @@ namespace KaydenMiller.TableTop.LootTableGenerator.Domain.DescriptorAggregate;
 
 public class Descriptor : AggregateRoot
 {
-    private readonly string _name;
+    public string Name { get; }
+    
     private readonly HashSet<Guid> _availableLootIds = new();
     private readonly HashSet<Guid> _modifierIds = new();
 
@@ -31,5 +32,10 @@ public class Descriptor : AggregateRoot
     {
         _modifierIds.Add(modifier.Id);
         return new Success(); 
+    }
+
+    public List<Guid> GetAvailableLootIds()
+    {
+        return _availableLootIds.ToList();
     }
 }

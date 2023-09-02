@@ -35,7 +35,29 @@
     <button type="submit">Create Descriptor</button>
 </EditForm>
 
+<label>Descriptor Id</label>
+<InputText @bind-Value="DescriptorToSelect"></InputText>
+<button onclick="@GetDescriptorById(DescriptorToSelect ?? "")">Get Descriptor</button>
+
+@if (CurrentDescriptor is not null)
+{
+<div>
+    <h1>Descriptor</h1>
+    <h2>@CurrentDescriptor.Name</h2>
+    
+    <ul>
+        @foreach (var loot in CurrentDescriptor.GetAvailableLootIds())
+        {
+            <li>@loot</li>
+        }
+    </ul>
+</div>
+}
+
 @code {
+    public Descriptor? CurrentDescriptor { get; set; }
+    public string? DescriptorToSelect { get; set; }
+    
     public CreateDescriptorForm? Model { get; set; }
     public string? LootId { get; set; }
 
@@ -70,11 +92,16 @@
         await DescriptorRepository.AddDescriptorAsync(descriptor);
     }
 
+    private async Task GetDescriptorById(string descriptorId)
+    {
+        var id = Guid.Parse(descriptorId);
+        CurrentDescriptor = await DescriptorRepository.ReadDescriptorAsync(id);
+    }
+
     public class CreateDescriptorForm
     {
         public string Name { get; set; } = null!;
         public List<Loot> LootToAdd { get; set; } = new();
         public List<Modifier> ModifiersToAdd { get; set; } = new();
     }
-
 }

@@ -14,8 +14,8 @@ public class DescriptorConfigurations : IEntityTypeConfiguration<Descriptor>
         builder.Property(d => d.Id)
            .ValueGeneratedNever();
 
-        builder.Property<string>("_name")
-          .HasColumnName("Name");
+        builder.Property(d => d.Name)
+           .HasColumnName("Name");
         builder.Property<HashSet<Guid>>("_availableLootIds")
            .HasColumnName("AvailableLootIds")
            .HasHashOfIdsConverter();

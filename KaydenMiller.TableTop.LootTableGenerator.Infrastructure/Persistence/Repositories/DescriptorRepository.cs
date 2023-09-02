@@ -23,4 +23,11 @@ public class DescriptorRepository : IDescriptorRepository
         _dbContext.Update(descriptor);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<Descriptor> ReadDescriptorAsync(Guid descriptorId)
+    {
+        var descriptor = await _dbContext.Descriptors.FindAsync(descriptorId);
+        if (descriptor is null) throw new Exception("Not found descriptor");
+        return descriptor;
+    }
 }
