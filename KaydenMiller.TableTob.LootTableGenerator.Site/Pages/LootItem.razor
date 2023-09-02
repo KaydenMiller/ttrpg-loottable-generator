@@ -43,7 +43,7 @@
             LootFormModel.MaxQuantity,
             null
             );
-        await LootRepository.CreateLoot(lootResult.Value);
+        await LootRepository.CreateLootAsync(lootResult.Value);
     }
 
     public class CreateLootForm

@@ -5,48 +5,76 @@
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.ModifierAggregate
 @using Throw
 @inject IDescriptorRepository DescriptorRepository
+@inject ILootRepository LootRepository
 
 <h3>Descriptors</h3>
 
+<h4>Loot To Add</h4>
+<ul>
+    @foreach (var loot in @Model?.LootToAdd ?? Enumerable.Empty<Loot>())
+    {
+        <li>ID: @loot.Id</li>
+    }
+</ul>
 
+<h4>Modifiers To Add</h4>
+<ul>
+    @foreach (var modifier in @Model?.ModifiersToAdd ?? Enumerable.Empty<Modifier>())
+    {
+        <li>ID: @modifier.Id</li>
+    }
+</ul>
+
+<label>Loot Id</label>
+<InputText @bind-Value="LootId"></InputText> 
+<button onclick="@AddLoot(LootId)">Add Loot</button>
 
 <EditForm Model="@Model" OnSubmit="@Submit">
-    <label>Loot Id</label>
-    <InputText @bind-Value="Model!.LootId"></InputText>
-    @* <button @onclick="AddLoot()"></button> *@
+    <label>Descriptor Name</label>
+    <InputText @bind-Value="Model!.Name"></InputText>
+    <button type="submit">Create Descriptor</button>
 </EditForm>
 
 @code {
     public CreateDescriptorForm? Model { get; set; }
-    public List<LootItem> LootToAdd { get; set; } = new();
-    public List<Modifier> ModifiersToAdd { get; set; } = new();
+    public string? LootId { get; set; }
 
     protected override void OnInitialized() => Model ??= new();
 
-    private async Task AddLoot(Guid lootId)
+    private async Task AddLoot(string? lootId)
     {
-        // LootToAdd.Add();
+        lootId.ThrowIfNull();
+        var id = Guid.Parse(lootId);
+        var loot = await LootRepository.ReadLootAsync(id);
+        Model!.LootToAdd.Add(loot);
     }
 
     private async Task Submit()
     {
         Model.ThrowIfNull();
-        Model.LootId.ThrowIfNull();
+        Model.Name.ThrowIfNull();
+        Model.LootToAdd.Throw().IfCountEquals(0);
 
-        var descriptor = new Descriptor();
+        var descriptor = new Descriptor(Model.Name);
 
-        foreach (var item in LootToAdd)
+        foreach (var item in Model.LootToAdd)
         {
-            // descriptor.AddLoot(item);
-            
+            descriptor.AddLoot(item);
         }
 
-        // await DescriptorRepository.AddDescriptorAsync();
+        foreach (var modifier in Model.ModifiersToAdd)
+        {
+            descriptor.AddModifier(modifier);
+        }
+
+        await DescriptorRepository.AddDescriptorAsync(descriptor);
     }
 
     public class CreateDescriptorForm
     {
-        public string LootId { get; set; }
+        public string Name { get; set; } = null!;
+        public List<Loot> LootToAdd { get; set; } = new();
+        public List<Modifier> ModifiersToAdd { get; set; } = new();
     }
 
 }

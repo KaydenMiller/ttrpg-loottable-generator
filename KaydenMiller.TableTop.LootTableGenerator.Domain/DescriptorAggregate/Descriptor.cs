@@ -5,8 +5,9 @@ using KaydenMiller.TableTop.LootTableGenerator.Domain.ModifierAggregate;
 
 namespace KaydenMiller.TableTop.LootTableGenerator.Domain.DescriptorAggregate;
 
-public class Descriptor : AggregateRoot 
+public class Descriptor : AggregateRoot
 {
+    private readonly string _name;
     private readonly HashSet<Guid> _availableLootIds = new();
     private readonly HashSet<Guid> _modifierIds = new();
 
@@ -14,7 +15,9 @@ public class Descriptor : AggregateRoot
     {
     }
 
-    public Descriptor(Guid? id = null) : base(id ?? Guid.NewGuid())
+    public Descriptor(
+        string name,
+        Guid? id = null) : base(id ?? Guid.NewGuid())
     {
     }
 

@@ -4,6 +4,7 @@ namespace KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces;
 
 public interface ILootRepository
 {
-    public Task CreateLoot(Loot loot);
-    public Task UpdateLoot(Loot loot);
+    public Task CreateLootAsync(Loot loot);
+    public Task<Loot> ReadLootAsync(Guid lootId);
+    public Task UpdateLootAsync(Loot loot);
 }
