@@ -7,52 +7,54 @@
 @inject IDescriptorRepository DescriptorRepository
 @inject ILootRepository LootRepository
 
-<h3>Descriptors</h3>
-
-<h4>Loot To Add</h4>
-<ul>
-    @foreach (var loot in @Model?.LootToAdd ?? Enumerable.Empty<Loot>())
-    {
-        <li>ID: @loot.Id</li>
-    }
-</ul>
-
-<h4>Modifiers To Add</h4>
-<ul>
-    @foreach (var modifier in @Model?.ModifiersToAdd ?? Enumerable.Empty<Modifier>())
-    {
-        <li>ID: @modifier.Id</li>
-    }
-</ul>
-
-<label>Loot Id</label>
-<InputText @bind-Value="LootId"></InputText> 
-<button onclick="@AddLoot(LootId)">Add Loot</button>
-
-<EditForm Model="@Model" OnSubmit="@Submit">
-    <label>Descriptor Name</label>
-    <InputText @bind-Value="Model!.Name"></InputText>
-    <button type="submit">Create Descriptor</button>
-</EditForm>
-
-<label>Descriptor Id</label>
-<InputText @bind-Value="DescriptorToSelect"></InputText>
-<button onclick="@GetDescriptorById(DescriptorToSelect ?? "")">Get Descriptor</button>
-
-@if (CurrentDescriptor is not null)
-{
-<div>
-    <h1>Descriptor</h1>
-    <h2>@CurrentDescriptor.Name</h2>
+<MudContainer>
+    <h3>Descriptors</h3>
     
+    <h4>Loot To Add</h4>
     <ul>
-        @foreach (var loot in CurrentDescriptor.GetAvailableLootIds())
+        @foreach (var loot in @Model?.LootToAdd ?? Enumerable.Empty<Loot>())
         {
-            <li>@loot</li>
+            <li>ID: @loot.Id</li>
         }
     </ul>
-</div>
-}
+    
+    <h4>Modifiers To Add</h4>
+    <ul>
+        @foreach (var modifier in @Model?.ModifiersToAdd ?? Enumerable.Empty<Modifier>())
+        {
+            <li>ID: @modifier.Id</li>
+        }
+    </ul>
+    
+    <label>Loot Id</label>
+    <InputText @bind-Value="LootId"></InputText> 
+    <button onclick="@AddLoot(LootId)">Add Loot</button>
+    
+    <EditForm Model="@Model" OnSubmit="@Submit">
+        <label>Descriptor Name</label>
+        <InputText @bind-Value="Model!.Name"></InputText>
+        <button type="submit">Create Descriptor</button>
+    </EditForm>
+    
+    <label>Descriptor Id</label>
+    <InputText @bind-Value="DescriptorToSelect"></InputText>
+    <button onclick="@GetDescriptorById(DescriptorToSelect ?? "")">Get Descriptor</button>
+    
+    @if (CurrentDescriptor is not null)
+    {
+    <div>
+        <h1>Descriptor</h1>
+        <h2>@CurrentDescriptor.Name</h2>
+        
+        <ul>
+            @foreach (var loot in CurrentDescriptor.GetAvailableLootIds())
+            {
+                <li>@loot</li>
+            }
+        </ul>
+    </div>
+    }
+</MudContainer>
 
 @code {
     public Descriptor? CurrentDescriptor { get; set; }

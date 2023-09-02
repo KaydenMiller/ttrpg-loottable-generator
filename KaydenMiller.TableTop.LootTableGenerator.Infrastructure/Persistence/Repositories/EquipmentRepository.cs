@@ -18,6 +18,11 @@ public class EquipmentRepository : IEquipmentRepository
         await _dbContext.SaveChangesAsync();
     }
 
+    public IQueryable<Equipment> ReadEquipment()
+    {
+        return _dbContext.Equipment.AsQueryable();
+    }
+
     public async Task UpdateEquipmentAsync(Equipment equipment)
     {
         _dbContext.Update(equipment);

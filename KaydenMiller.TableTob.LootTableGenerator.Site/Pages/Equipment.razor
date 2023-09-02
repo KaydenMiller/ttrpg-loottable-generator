@@ -3,18 +3,19 @@
 @using Throw
 @inject IEquipmentRepository EquipmentRepository
 
-
-<h3>Equipment</h3>
-
-<EditForm Model="@Model" OnSubmit="@Submit">
-    <label>Code</label>
-    <InputText @bind-Value="Model!.Code"></InputText>
+<MudContainer>
+    <h3>Equipment</h3>
     
-    <label>Name</label>
-    <InputText @bind-Value="Model!.Name"></InputText>
-    
-    <button type="submit">Create</button>
-</EditForm>
+    <EditForm Model="@Model" OnSubmit="@Submit">
+        <label>Code</label>
+        <InputText @bind-Value="Model!.Code"></InputText>
+        
+        <label>Name</label>
+        <InputText @bind-Value="Model!.Name"></InputText>
+        
+        <button type="submit">Create</button>
+    </EditForm>
+</MudContainer>
 
 @code {
     public CreateEquipmentForm? Model { get; set; }
