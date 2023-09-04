@@ -1,7 +1,11 @@
 ﻿@page "/tables"
-@using KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Persistence.Repositories
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.DescriptorAggregate
-@inject DescriptorRepository DescriptorRepository
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
+@using KaydenMiller.TableTob.LootTableGenerator.Site.Extensions
+@using System.Collections.ObjectModel
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate
+@inject IDescriptorRepository DescriptorRepository
+@inject ILootRepository LootRepository
 
 <MudContainer>
     <MudItem>
@@ -15,20 +19,78 @@
                         @descriptor.Name
                     </MudCardHeader>
                     <MudCardContent>
-                        
+                        <ul>
+                            @foreach (var lootItem in LootRepository.ReadLoot().Where(l => descriptor.GetAvailableLootIds().Contains(l.Id)))
+                            {
+                                <li>(@lootItem.MinQuantity-@lootItem.MaxQuantity) x @lootItem.Name @@ @lootItem.Rarity.AsPercentString() / Item</li>
+                            }
+                        </ul>
                     </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Color="Color.Primary" OnClick="@(() => AddDescriptor(descriptor))">
+                            Add To Table
+                        </MudButton>
+                    </MudCardActions>
                 </MudCard>
             }
+        </MudPaper>
+    </MudItem>
+    
+    <MudItem>
+        <MudPaper>
+            <MudButton Color="Color.Primary" OnClick="@(async () => await Generate())">Generate</MudButton>
+           
+            <MudText>
+                @string.Join(',', _selectedDescriptors.Select(d => d.Name))
+            </MudText>
+
+            <ul>
+                @foreach (var loot in _calculatedLootItems)
+                {
+                    <li>@loot.Name x @loot.CountAvailable</li>
+                }
+            </ul>
         </MudPaper>
     </MudItem>
 </MudContainer>
 
 @code {
     private IEnumerable<Descriptor> _descriptors = new List<Descriptor>();
+    private ObservableCollection<Descriptor> _selectedDescriptors = new();
+    private IEnumerable<Descriptors.CalculatedLootItem> _calculatedLootItems = new List<Descriptors.CalculatedLootItem>();
 
     protected override void OnInitialized()
     {
         _descriptors = DescriptorRepository.ReadDescriptors().ToList();
+    }
+
+    private void AddDescriptor(Descriptor descriptor)
+    {
+        _selectedDescriptors.Add(descriptor);
+    }
+
+    private async Task<IEnumerable<Descriptors.CalculatedLootItem>> GenerateLoot()
+    {
+        // Get all possible loot item ids
+        var lootIds =_selectedDescriptors.SelectMany(d => d.GetAvailableLootIds());
+        // Get all loot items
+        var tasks = lootIds.Select(id => LootRepository.ReadLootByIdAsync(id)).ToArray();
+        var lootItems = new List<Loot>();
+        foreach (var task in tasks)
+        {
+            lootItems.Add(await task);
+        }
+        var rolledLoot = lootItems.Select(li => new Descriptors.CalculatedLootItem(li.Id, li.Name, li.Roll()));
+        var groupedLoot = rolledLoot.GroupBy(rl => rl.RootLootItemId);
+        var mergedLoot = groupedLoot
+            .Select(g => g.Aggregate((x, y) => x with { CountAvailable = x.CountAvailable + y.CountAvailable }));
+
+        return mergedLoot;
+    }
+
+    private async Task Generate()
+    {
+        _calculatedLootItems = await GenerateLoot();
     }
 
 }
