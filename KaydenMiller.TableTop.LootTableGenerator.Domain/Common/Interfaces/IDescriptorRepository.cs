@@ -6,5 +6,6 @@ public interface IDescriptorRepository
 {
     Task AddDescriptorAsync(Descriptor descriptor);
     Task<Descriptor> ReadDescriptorAsync(Guid descriptorId);
+    IQueryable<Descriptor> ReadDescriptors();
     Task UpdateDescriptorAsync(Descriptor descriptor);
 }

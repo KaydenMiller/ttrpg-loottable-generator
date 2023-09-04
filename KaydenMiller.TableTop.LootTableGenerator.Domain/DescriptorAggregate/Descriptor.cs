@@ -20,6 +20,7 @@ public class Descriptor : AggregateRoot
         string name,
         Guid? id = null) : base(id ?? Guid.NewGuid())
     {
+        Name = name;
     }
 
     public ErrorOr<Success> AddLoot(Loot loot)

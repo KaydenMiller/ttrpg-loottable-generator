@@ -18,10 +18,16 @@ public class LootRepository : ILootRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<Loot> ReadLootAsync(Guid lootId)
+    public async Task<Loot> ReadLootByIdAsync(Guid lootId)
     {
         var response = await _dbContext.Loot.FindAsync(lootId);
         if (response is null) throw new Exception("Not found");
+        return response;
+    }
+
+    public IQueryable<Loot> ReadLoot()
+    {
+        var response = _dbContext.Loot.AsQueryable();
         return response;
     }
 

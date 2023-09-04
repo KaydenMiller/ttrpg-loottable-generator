@@ -4,56 +4,88 @@
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.ModifierAggregate
 @using Throw
+@using KaydenMiller.TableTob.LootTableGenerator.Site.Extensions
 @inject IDescriptorRepository DescriptorRepository
 @inject ILootRepository LootRepository
 
 <MudContainer>
-    <h3>Descriptors</h3>
-    
-    <h4>Loot To Add</h4>
-    <ul>
-        @foreach (var loot in @Model?.LootToAdd ?? Enumerable.Empty<Loot>())
-        {
-            <li>ID: @loot.Id</li>
-        }
-    </ul>
-    
-    <h4>Modifiers To Add</h4>
-    <ul>
-        @foreach (var modifier in @Model?.ModifiersToAdd ?? Enumerable.Empty<Modifier>())
-        {
-            <li>ID: @modifier.Id</li>
-        }
-    </ul>
-    
-    <label>Loot Id</label>
-    <InputText @bind-Value="LootId"></InputText> 
-    <button onclick="@AddLoot(LootId)">Add Loot</button>
-    
-    <EditForm Model="@Model" OnSubmit="@Submit">
-        <label>Descriptor Name</label>
-        <InputText @bind-Value="Model!.Name"></InputText>
-        <button type="submit">Create Descriptor</button>
-    </EditForm>
-    
-    <label>Descriptor Id</label>
-    <InputText @bind-Value="DescriptorToSelect"></InputText>
-    <button onclick="@GetDescriptorById(DescriptorToSelect ?? "")">Get Descriptor</button>
-    
-    @if (CurrentDescriptor is not null)
-    {
-    <div>
-        <h1>Descriptor</h1>
-        <h2>@CurrentDescriptor.Name</h2>
+    <MudItem>
+        <MudPaper>
+            <h4>Loot To Add</h4>
+            <ul>
+                @foreach (var loot in @Model?.LootToAdd ?? Enumerable.Empty<Loot>())
+                {
+                    <li>(@loot.MinQuantity-@loot.MaxQuantity) x @loot.Name @@ @loot.Rarity.AsPercentString() / Item</li>
+                }
+            </ul>
         
-        <ul>
-            @foreach (var loot in CurrentDescriptor.GetAvailableLootIds())
+            <h4>Modifiers To Add</h4>
+            <ul>
+                @foreach (var modifier in @Model?.ModifiersToAdd ?? Enumerable.Empty<Modifier>())
+                {
+                    <li>ID: @modifier.Id</li>
+                }
+            </ul>
+        </MudPaper>
+        
+        
+        <MudPaper>
+            <h3>Descriptors</h3>
+
+            <MudSelect T="string" Label="Loot To Add" AnchorOrigin="Origin.BottomCenter"
+                       @bind-Value="@LootId">
+                @foreach (var loot in _availableLootItems)
+                {
+                    <MudSelectItem Value="@(loot.Id.ToString())">@(loot.Name)</MudSelectItem>
+                }
+            </MudSelect>
+
+            <MudButton Color="Color.Primary" OnClick="@(() => AddLoot(LootId))">Add Loot Item</MudButton>
+        </MudPaper>
+        
+        <MudPaper>
+            <MudForm @bind-isValid="@_success" Model="@Model">
+                <MudTextField T="string" Label="Descriptor Name"
+                              @bind-Value="Model!.Name"></MudTextField>
+                <MudButton OnClick="@Submit">
+                    Create Descriptor
+                </MudButton>
+            </MudForm>
+        </MudPaper>
+    </MudItem>
+
+    <MudItem>
+        <MudPaper>
+            <MudSelect T="string" @bind-Value="DescriptorToSelect" AnchorOrigin="Origin.BottomCenter" Label="Descriptor To Select">
+                @foreach (var descriptor in DescriptorRepository.ReadDescriptors())
+                {
+                    <MudSelectItem Value="@descriptor.Id.ToString()">@descriptor.Name</MudSelectItem>
+                }
+            </MudSelect>
+            <MudButton Color="Color.Primary" OnClick="@(async () => await SelectDescriptor(DescriptorToSelect ?? ""))">Select Descriptor</MudButton>
+        
+            @if (CurrentDescriptor is not null && _calculatedLootItems.Count > 0)
             {
-                <li>@loot</li>
+                <div>
+                    <h1>Descriptor</h1>
+                    <h2>@CurrentDescriptor.Name</h2>
+        
+                    <ul>
+                        @foreach (var loot in _calculatedLootItems)
+                        {
+                            <li>@loot.Name x @loot.CountAvailable</li>
+                        }
+                    </ul>
+                </div>
             }
-        </ul>
-    </div>
-    }
+            else
+            {
+                <MudText Typo="@Typo.body1">No Loot was available</MudText>
+            }
+        </MudPaper>
+    </MudItem>
+
+
 </MudContainer>
 
 @code {
@@ -63,14 +95,28 @@
     public CreateDescriptorForm? Model { get; set; }
     public string? LootId { get; set; }
 
-    protected override void OnInitialized() => Model ??= new();
+    protected override void OnInitialized()
+    {
+        Model ??= new();
+        _availableLootItems = GetLoot();
+    }
 
+    private bool _success;
+    private List<Loot> _availableLootItems = new();
+    private List<CalculatedLootItem> _calculatedLootItems = new();
+    
     private async Task AddLoot(string? lootId)
     {
         lootId.ThrowIfNull();
         var id = Guid.Parse(lootId);
-        var loot = await LootRepository.ReadLootAsync(id);
+        var loot = await LootRepository.ReadLootByIdAsync(id);
         Model!.LootToAdd.Add(loot);
+    }
+
+    private List<Loot> GetLoot()
+    {
+        var loot = LootRepository.ReadLoot();
+        return loot.ToList();
     }
 
     private async Task Submit()
@@ -94,10 +140,29 @@
         await DescriptorRepository.AddDescriptorAsync(descriptor);
     }
 
-    private async Task GetDescriptorById(string descriptorId)
+    private async Task SelectDescriptor(string descriptorId)
+    {
+        var descriptor = await GetDescriptorById(descriptorId);
+        _calculatedLootItems = (await GenerateLootFromSelectedDescriptor(descriptor)).ToList();
+    }
+
+    private async Task<IEnumerable<CalculatedLootItem>> GenerateLootFromSelectedDescriptor(Descriptor descriptor)
+    {
+        var lootItems = new List<Loot>();
+
+        foreach (var lootId in descriptor.GetAvailableLootIds())
+        {
+            lootItems.Add(await LootRepository.ReadLootByIdAsync(lootId));
+        }
+
+        return lootItems.Select(li => new CalculatedLootItem(li.Id, li.Name, li.Roll()));
+    }
+
+    private async Task<Descriptor> GetDescriptorById(string descriptorId)
     {
         var id = Guid.Parse(descriptorId);
         CurrentDescriptor = await DescriptorRepository.ReadDescriptorAsync(id);
+        return CurrentDescriptor;
     }
 
     public class CreateDescriptorForm
@@ -106,4 +171,5 @@
         public List<Loot> LootToAdd { get; set; } = new();
         public List<Modifier> ModifiersToAdd { get; set; } = new();
     }
+    public record CalculatedLootItem(Guid RootLootItemId, string Name, int CountAvailable);
 }

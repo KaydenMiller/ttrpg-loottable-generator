@@ -1,0 +1,34 @@
+﻿@page "/tables"
+@using KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Persistence.Repositories
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.DescriptorAggregate
+@inject DescriptorRepository DescriptorRepository
+
+<MudContainer>
+    <MudItem>
+        <MudPaper>
+            <h3>Tables</h3>
+            
+            @foreach (var descriptor in _descriptors)
+            {
+                <MudCard>
+                    <MudCardHeader>
+                        @descriptor.Name
+                    </MudCardHeader>
+                    <MudCardContent>
+                        
+                    </MudCardContent>
+                </MudCard>
+            }
+        </MudPaper>
+    </MudItem>
+</MudContainer>
+
+@code {
+    private IEnumerable<Descriptor> _descriptors = new List<Descriptor>();
+
+    protected override void OnInitialized()
+    {
+        _descriptors = DescriptorRepository.ReadDescriptors().ToList();
+    }
+
+}

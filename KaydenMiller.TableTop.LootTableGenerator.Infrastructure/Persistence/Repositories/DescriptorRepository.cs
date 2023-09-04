@@ -24,6 +24,11 @@ public class DescriptorRepository : IDescriptorRepository
         await _dbContext.SaveChangesAsync();
     }
 
+    public IQueryable<Descriptor> ReadDescriptors()
+    {
+        return _dbContext.Descriptors.AsQueryable();
+    }
+
     public async Task<Descriptor> ReadDescriptorAsync(Guid descriptorId)
     {
         var descriptor = await _dbContext.Descriptors.FindAsync(descriptorId);
