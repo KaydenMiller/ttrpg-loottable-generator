@@ -3,6 +3,8 @@
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate
+@using KaydenMiller.TableTob.LootTableGenerator.Site.Data
+@using KaydenMiller.TableTob.LootTableGenerator.Site.Extensions
 @inject ILootRepository LootRepository
 @inject IEquipmentRepository EquipmentRepository
 
@@ -21,6 +23,16 @@
                 </MudSelect>
                 <MudTextField T="string" Label="Loot Name" Required="true" RequiredError="Loot Name is Required"
                               @bind-Value="LootFormModel!.Name"/>
+                <MudSelect T="RarityType"
+                           Label="Rarity Level" 
+                           AnchorOrigin="Origin.BottomCenter"
+                           ValueChanged="@((v) => LootFormModel.Rarity = v.ToPercentage().ToInteger())">
+                    <MudSelectItem Value="@(RarityType.Common)">@(nameof(RarityType.Common))</MudSelectItem>
+                    <MudSelectItem Value="@(RarityType.Uncommon)">@(nameof(RarityType.Uncommon))</MudSelectItem>
+                    <MudSelectItem Value="@(RarityType.Rare)">@(nameof(RarityType.Rare))</MudSelectItem>
+                    <MudSelectItem Value="@(RarityType.VeryRare)">@(nameof(RarityType.VeryRare))</MudSelectItem>
+                    <MudSelectItem Value="@(RarityType.Legendary)">@(nameof(RarityType.Legendary))</MudSelectItem>
+                </MudSelect>
                 <MudTextField T="int" Label="Percentage Rarity" Required="true" RequiredError="Rarity is required"
                               @bind-Value="LootFormModel!.Rarity"/>
                 <MudTextField T="int" Label="Min Quantity" Required="true" RequiredError="Min Quantity is required"
@@ -47,6 +59,7 @@
     private bool success;
     private string[] errors =  { };
     private List<TableTop.LootTableGenerator.Domain.EquipmentAggregate.Equipment> _availableEquipment = new();
+    private RarityType _selectedRarity = RarityType.Common;
 
     private MudForm _form;
     

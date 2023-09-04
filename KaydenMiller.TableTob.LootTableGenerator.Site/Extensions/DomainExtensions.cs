@@ -8,4 +8,9 @@ public static class DomainExtensions
     {
         return $"{percentage.Value * 100}%";
     }
+
+    public static int ToInteger(this Percentage percentage)
+    {
+        return (int)MathF.Floor(percentage.Value * 100.0f);
+    }
 }
