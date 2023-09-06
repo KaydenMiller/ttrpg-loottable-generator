@@ -9,50 +9,46 @@
 @inject IEquipmentRepository EquipmentRepository
 
 <MudContainer>
-    <MudItem>
-        <MudPaper>
-            <h3>Loot</h3>
-            
-            <MudForm @ref="_form" @bind-isValid="@success" @bind-Errors="@errors" Model="@LootFormModel">
-                <MudSelect T="string" Label="Backing Equipment" AnchorOrigin="Origin.BottomCenter" 
-                           @bind-Value="@LootFormModel!.EquipmentId">
-                    @foreach (var equip in _availableEquipment)
-                    {
-                        <MudSelectItem Value="@(equip.Id.ToString())">@(equip.Name)</MudSelectItem>
-                    }
-                </MudSelect>
-                <MudTextField T="string" Label="Loot Name" Required="true" RequiredError="Loot Name is Required"
-                              @bind-Value="LootFormModel!.Name"/>
-                <MudSelect T="RarityType"
-                           Label="Rarity Level" 
-                           AnchorOrigin="Origin.BottomCenter"
-                           ValueChanged="@((v) => LootFormModel.Rarity = v.ToPercentage().ToInteger())">
-                    <MudSelectItem Value="@(RarityType.Common)">@(nameof(RarityType.Common))</MudSelectItem>
-                    <MudSelectItem Value="@(RarityType.Uncommon)">@(nameof(RarityType.Uncommon))</MudSelectItem>
-                    <MudSelectItem Value="@(RarityType.Rare)">@(nameof(RarityType.Rare))</MudSelectItem>
-                    <MudSelectItem Value="@(RarityType.VeryRare)">@(nameof(RarityType.VeryRare))</MudSelectItem>
-                    <MudSelectItem Value="@(RarityType.Legendary)">@(nameof(RarityType.Legendary))</MudSelectItem>
-                </MudSelect>
-                <MudTextField T="int" Label="Percentage Rarity" Required="true" RequiredError="Rarity is required"
-                              @bind-Value="LootFormModel!.Rarity"/>
-                <MudTextField T="int" Label="Min Quantity" Required="true" RequiredError="Min Quantity is required"
-                              @bind-Value="LootFormModel!.MinQuantity"/>
-                <MudTextField T="int" Label="Max Quantity" Required="true" RequiredError="Max Quantity is required"
-                              @bind-Value="LootFormModel!.MaxQuantity"/>
+    <MudPaper>
+        <h3>Loot</h3>
+        
+        <MudForm @ref="_form" @bind-isValid="@success" @bind-Errors="@errors" Model="@LootFormModel">
+            <MudSelect T="string" Label="Backing Equipment" AnchorOrigin="Origin.BottomCenter" 
+                       @bind-Value="@LootFormModel!.EquipmentId">
+                @foreach (var equip in _availableEquipment)
+                {
+                    <MudSelectItem Value="@(equip.Id.ToString())">@(equip.Name)</MudSelectItem>
+                }
+            </MudSelect>
+            <MudTextField T="string" Label="Loot Name" Required="true" RequiredError="Loot Name is Required"
+                          @bind-Value="LootFormModel!.Name"/>
+            <MudSelect T="RarityType"
+                       Label="Rarity Level" 
+                       AnchorOrigin="Origin.BottomCenter"
+                       ValueChanged="@((v) => LootFormModel.Rarity = v.ToPercentage().ToInteger())">
+                <MudSelectItem Value="@(RarityType.Common)">@(nameof(RarityType.Common))</MudSelectItem>
+                <MudSelectItem Value="@(RarityType.Uncommon)">@(nameof(RarityType.Uncommon))</MudSelectItem>
+                <MudSelectItem Value="@(RarityType.Rare)">@(nameof(RarityType.Rare))</MudSelectItem>
+                <MudSelectItem Value="@(RarityType.VeryRare)">@(nameof(RarityType.VeryRare))</MudSelectItem>
+                <MudSelectItem Value="@(RarityType.Legendary)">@(nameof(RarityType.Legendary))</MudSelectItem>
+            </MudSelect>
+            <MudTextField T="int" Label="Percentage Rarity" Required="true" RequiredError="Rarity is required"
+                          @bind-Value="LootFormModel!.Rarity"/>
+            <MudTextField T="int" Label="Min Quantity" Required="true" RequiredError="Min Quantity is required"
+                          @bind-Value="LootFormModel!.MinQuantity"/>
+            <MudTextField T="int" Label="Max Quantity" Required="true" RequiredError="Max Quantity is required"
+                          @bind-Value="LootFormModel!.MaxQuantity"/>
 
-                <MudButton Color="Color.Primary" Disabled="@(!success)" OnClick="@Submit" Class="ml-auto">Create Loot</MudButton>
-            </MudForm>
-        </MudPaper>
-    </MudItem>
-    <MudItem>
-        <MudPaper>
-            <MudText Typo="Typo.subtitle2">@($"Errors: ({errors.Length})")</MudText>
-            @foreach (var error in errors)
-            {
-                <MudText Color="@Color.Error">@error</MudText>
-            }
-        </MudPaper>
-    </MudItem>
+            <MudButton Color="Color.Primary" Disabled="@(!success)" OnClick="@Submit" Class="ml-auto">Create Loot</MudButton>
+        </MudForm>
+    </MudPaper>
+    <MudPaper>
+        <MudText Typo="Typo.subtitle2">@($"Errors: ({errors.Length})")</MudText>
+        @foreach (var error in errors)
+        {
+            <MudText Color="@Color.Error">@error</MudText>
+        }
+    </MudPaper>
 </MudContainer>
 
 @code {

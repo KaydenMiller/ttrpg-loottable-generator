@@ -4,30 +4,28 @@
 @inject IEquipmentRepository EquipmentRepository
 
 <MudContainer>
-    <MudItem>
-        <MudPaper>
-            <h3>Equipment</h3>
-            
-            <MudForm @ref="_form" @bind-isValid="@_success" Model="@Model">
-                <MudTextField T="string"
-                              Label="Code"
-                              Required="true"
-                              RequiredError="Equipment Code is required"
-                              @bind-Value="@Model!.Code"/>
-                <MudTextField T="string"
-                              Label="Name"
-                              Required="true"
-                              RequiredError="Name"
-                              @bind-Value="@Model!.Name"></MudTextField>
-            </MudForm>
-            
-            <MudButton Color="Color.Primary"
-                       Disabled="@(!_success)"
-                       OnClick="@Submit">
-                Create Equipment
-            </MudButton>
-        </MudPaper>
-    </MudItem>
+    <MudPaper>
+        <h3>Equipment</h3>
+        
+        <MudForm @ref="_form" @bind-isValid="@_success" Model="@Model">
+            <MudTextField T="string"
+                          Label="Code"
+                          Required="true"
+                          RequiredError="Equipment Code is required"
+                          @bind-Value="@Model!.Code"/>
+            <MudTextField T="string"
+                          Label="Name"
+                          Required="true"
+                          RequiredError="Name"
+                          @bind-Value="@Model!.Name"></MudTextField>
+        </MudForm>
+        
+        <MudButton Color="Color.Primary"
+                   Disabled="@(!_success)"
+                   OnClick="@Submit">
+            Create Equipment
+        </MudButton>
+    </MudPaper>
 </MudContainer>
 
 @code {

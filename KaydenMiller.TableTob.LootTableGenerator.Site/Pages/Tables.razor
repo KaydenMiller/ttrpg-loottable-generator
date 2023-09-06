@@ -8,50 +8,46 @@
 @inject ILootRepository LootRepository
 
 <MudContainer>
-    <MudItem>
-        <MudPaper>
-            <h3>Tables</h3>
-            
-            @foreach (var descriptor in _descriptors)
-            {
-                <MudCard>
-                    <MudCardHeader>
-                        @descriptor.Name
-                    </MudCardHeader>
-                    <MudCardContent>
-                        <ul>
-                            @foreach (var lootItem in LootRepository.ReadLoot().Where(l => descriptor.GetAvailableLootIds().Contains(l.Id)))
-                            {
-                                <li>(@lootItem.MinQuantity-@lootItem.MaxQuantity) x @lootItem.Name @@ @lootItem.Rarity.AsPercentString() / Item</li>
-                            }
-                        </ul>
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Color="Color.Primary" OnClick="@(() => AddDescriptor(descriptor))">
-                            Add To Table
-                        </MudButton>
-                    </MudCardActions>
-                </MudCard>
-            }
-        </MudPaper>
-    </MudItem>
-    
-    <MudItem>
-        <MudPaper>
-            <MudButton Color="Color.Primary" OnClick="@(async () => await Generate())">Generate</MudButton>
-           
-            <MudText>
-                @string.Join(',', _selectedDescriptors.Select(d => d.Name))
-            </MudText>
+    <MudPaper>
+        <h3>Tables</h3>
+        
+        @foreach (var descriptor in _descriptors)
+        {
+            <MudCard>
+                <MudCardHeader>
+                    @descriptor.Name
+                </MudCardHeader>
+                <MudCardContent>
+                    <ul>
+                        @foreach (var lootItem in LootRepository.ReadLoot().Where(l => descriptor.GetAvailableLootIds().Contains(l.Id)))
+                        {
+                            <li>(@lootItem.MinQuantity-@lootItem.MaxQuantity) x @lootItem.Name @@ @lootItem.Rarity.AsPercentString() / Item</li>
+                        }
+                    </ul>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Color="Color.Primary" OnClick="@(() => AddDescriptor(descriptor))">
+                        Add To Table
+                    </MudButton>
+                </MudCardActions>
+            </MudCard>
+        }
+    </MudPaper>
 
-            <ul>
-                @foreach (var loot in _calculatedLootItems)
-                {
-                    <li>@loot.Name x @loot.CountAvailable</li>
-                }
-            </ul>
-        </MudPaper>
-    </MudItem>
+    <MudPaper>
+        <MudButton Color="Color.Primary" OnClick="@(async () => await Generate())">Generate</MudButton>
+       
+        <MudText>
+            @string.Join(',', _selectedDescriptors.Select(d => d.Name))
+        </MudText>
+
+        <ul>
+            @foreach (var loot in _calculatedLootItems)
+            {
+                <li>@loot.Name x @loot.CountAvailable</li>
+            }
+        </ul>
+    </MudPaper>
 </MudContainer>
 
 @code {
