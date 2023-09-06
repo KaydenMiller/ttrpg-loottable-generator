@@ -3,13 +3,14 @@
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate
-@using KaydenMiller.TableTob.LootTableGenerator.Site.Data
-@using KaydenMiller.TableTob.LootTableGenerator.Site.Extensions
+@using KaydenMiller.TableTop.LootTableGenerator.Site.Data
+@using KaydenMiller.TableTop.LootTableGenerator.Site.Extensions
+@using KaydenMiller.TableTop.LootTableGenerator.Site.Components
 @inject ILootRepository LootRepository
 @inject IEquipmentRepository EquipmentRepository
 
 <MudContainer>
-    <MudPaper>
+    <TTPaper>
         <h3>Loot</h3>
         
         <MudForm @ref="_form" @bind-isValid="@success" @bind-Errors="@errors" Model="@LootFormModel">
@@ -41,14 +42,14 @@
 
             <MudButton Color="Color.Primary" Disabled="@(!success)" OnClick="@Submit" Class="ml-auto">Create Loot</MudButton>
         </MudForm>
-    </MudPaper>
-    <MudPaper>
+    </TTPaper>
+    <TTPaper>
         <MudText Typo="Typo.subtitle2">@($"Errors: ({errors.Length})")</MudText>
         @foreach (var error in errors)
         {
             <MudText Color="@Color.Error">@error</MudText>
         }
-    </MudPaper>
+    </TTPaper>
 </MudContainer>
 
 @code {

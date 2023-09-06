@@ -2,7 +2,7 @@
 using Ardalis.SmartEnum;
 using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects;
 
-namespace KaydenMiller.TableTob.LootTableGenerator.Site.Data;
+namespace KaydenMiller.TableTop.LootTableGenerator.Site.Data;
 
 public class RarityType : SmartEnum<RarityType>
 {

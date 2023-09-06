@@ -3,13 +3,14 @@
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.DescriptorAggregate
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.ModifierAggregate
+@using KaydenMiller.TableTop.LootTableGenerator.Site.Components
 @using Throw
-@using KaydenMiller.TableTob.LootTableGenerator.Site.Extensions
+@using KaydenMiller.TableTop.LootTableGenerator.Site.Extensions
 @inject IDescriptorRepository DescriptorRepository
 @inject ILootRepository LootRepository
 
 <MudContainer>
-    <MudPaper>
+    <TTPaper>
         <h4>Loot To Add</h4>
         <ul>
             @foreach (var loot in @Model?.LootToAdd ?? Enumerable.Empty<Loot>())
@@ -25,10 +26,10 @@
                 <li>ID: @modifier.Id</li>
             }
         </ul>
-    </MudPaper>
+    </TTPaper>
     
     
-    <MudPaper>
+    <TTPaper>
         <h3>Descriptors</h3>
 
         <MudSelect T="string" Label="Loot To Add" AnchorOrigin="Origin.BottomCenter"
@@ -40,9 +41,9 @@
         </MudSelect>
 
         <MudButton Color="Color.Primary" OnClick="@(() => AddLoot(LootId))">Add Loot Item</MudButton>
-    </MudPaper>
+    </TTPaper>
     
-    <MudPaper>
+    <TTPaper>
         <MudForm @bind-isValid="@_success" Model="@Model">
             <MudTextField T="string" Label="Descriptor Name"
                           @bind-Value="Model!.Name"></MudTextField>
@@ -50,9 +51,9 @@
                 Create Descriptor
             </MudButton>
         </MudForm>
-    </MudPaper>
+    </TTPaper>
 
-    <MudPaper>
+    <TTPaper>
         <MudSelect T="string" @bind-Value="DescriptorToSelect" AnchorOrigin="Origin.BottomCenter" Label="Descriptor To Select">
             @foreach (var descriptor in DescriptorRepository.ReadDescriptors())
             {
@@ -79,7 +80,7 @@
         {
             <MudText Typo="@Typo.body1">No Loot was available</MudText>
         }
-    </MudPaper>
+    </TTPaper>
 </MudContainer>
 
 @code {

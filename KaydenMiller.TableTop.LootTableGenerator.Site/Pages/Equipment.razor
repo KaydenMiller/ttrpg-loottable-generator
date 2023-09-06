@@ -1,0 +1,56 @@
+﻿@page "/equipment"
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
+@using KaydenMiller.TableTop.LootTableGenerator.Site.Components
+@using Throw
+@inject IEquipmentRepository EquipmentRepository
+
+<TTPaper>
+   <h3>Equipment</h3>
+   
+   <MudForm @ref="_form" @bind-isValid="@_success" Model="@Model">
+       <MudTextField T="string"
+                     Label="Code"
+                     Required="true"
+                     RequiredError="Equipment Code is required"
+                     @bind-Value="@Model!.Code"/>
+       <MudTextField T="string"
+                     Label="Name"
+                     Required="true"
+                     RequiredError="Name"
+                     @bind-Value="@Model!.Name"></MudTextField>
+   </MudForm>
+   
+   <MudButton Color="Color.Primary"
+              Variant="Variant.Filled"
+              Disabled="@(!_success)"
+              OnClick="@Submit">
+       Create Equipment
+   </MudButton> 
+</TTPaper>
+
+@code {
+    public CreateEquipmentForm? Model { get; set; }
+
+    protected override void OnInitialized() => Model ??= new();
+
+    private MudForm _form;
+    private bool _success;
+
+    private async Task Submit()
+    {
+        Model.ThrowIfNull();
+        Model?.Code.ThrowIfNull();
+        Model?.Name.ThrowIfNull();
+
+        await EquipmentRepository.AddEquipmentAsync(new TableTop.LootTableGenerator.Domain.EquipmentAggregate.Equipment(
+            Model!.Code,
+            Model.Name
+            ));
+    }
+
+    public class CreateEquipmentForm 
+    {
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+}

@@ -1,6 +1,6 @@
 ﻿using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects;
 
-namespace KaydenMiller.TableTob.LootTableGenerator.Site.Extensions;
+namespace KaydenMiller.TableTop.LootTableGenerator.Site.Extensions;
 
 public static class DomainExtensions
 {

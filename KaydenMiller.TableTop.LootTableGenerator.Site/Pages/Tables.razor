@@ -1,14 +1,15 @@
 ﻿@page "/tables"
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.DescriptorAggregate
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
-@using KaydenMiller.TableTob.LootTableGenerator.Site.Extensions
+@using KaydenMiller.TableTop.LootTableGenerator.Site.Extensions
 @using System.Collections.ObjectModel
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate
+@using KaydenMiller.TableTop.LootTableGenerator.Site.Components
 @inject IDescriptorRepository DescriptorRepository
 @inject ILootRepository LootRepository
 
 <MudContainer>
-    <MudPaper>
+    <TTPaper>
         <h3>Tables</h3>
         
         @foreach (var descriptor in _descriptors)
@@ -32,9 +33,8 @@
                 </MudCardActions>
             </MudCard>
         }
-    </MudPaper>
-
-    <MudPaper>
+    </TTPaper>
+    <TTPaper>
         <MudButton Color="Color.Primary" OnClick="@(async () => await Generate())">Generate</MudButton>
        
         <MudText>
@@ -47,7 +47,7 @@
                 <li>@loot.Name x @loot.CountAvailable</li>
             }
         </ul>
-    </MudPaper>
+    </TTPaper>
 </MudContainer>
 
 @code {

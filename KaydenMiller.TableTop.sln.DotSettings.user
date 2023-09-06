@@ -1,45 +1,48 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2e66d93a_002D740f_002D4143_002D9b2e_002D10a859ae806e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenValidRoomKey_WhenContainingOneRoom_ShouldParse #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;Assembly Path="C:\Users\Kayde\.nuget\packages\throw\1.3.1\lib\net6.0\Throw.dll" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2e66d93a_002D740f_002D4143_002D9b2e_002D10a859ae806e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenValidRoomKey_WhenContainingOneRoom_ShouldParse #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5516f993_002D48f3_002D429a_002Db698_002Dfd6b3d45f359/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenValidRoomKey_WhenContainingOneRoom_ShouldParse #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests.GivenValidRoomKey_WhenContainingOneRoom_ShouldParse&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5516f993_002D48f3_002D429a_002Db698_002Dfd6b3d45f359/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenValidRoomKey_WhenContainingOneRoom_ShouldParse #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests.GivenValidRoomKey_WhenContainingOneRoom_ShouldParse&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=65c4c74f_002D3953_002D43a3_002Db79b_002D1a6838404683/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RoomDecoderTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=65c4c74f_002D3953_002D43a3_002Db79b_002D1a6838404683/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RoomDecoderTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6d7f9f05_002Dcb8c_002D4097_002D8bf1_002D671f1ebe677c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenValidRoomKey_WhenContainingOneRoom_ShouldParse #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests.GivenValidRoomKey_WhenContainingOneRoom_ShouldParse&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6d7f9f05_002Dcb8c_002D4097_002D8bf1_002D671f1ebe677c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenValidRoomKey_WhenContainingOneRoom_ShouldParse #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests.GivenValidRoomKey_WhenContainingOneRoom_ShouldParse&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=af14d2e5_002D2519_002D456a_002Dbe4b_002D78c9f702ea01/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenValidRoomKey_WhenContainingOneRoom_ShouldParse #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests.GivenValidRoomKey_WhenContainingOneRoom_ShouldParse&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=af14d2e5_002D2519_002D456a_002Dbe4b_002D78c9f702ea01/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenValidRoomKey_WhenContainingOneRoom_ShouldParse #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests.GivenValidRoomKey_WhenContainingOneRoom_ShouldParse&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b993a2fe_002D8428_002D45cb_002Dbef6_002Da265bc8fb812/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="LootGeneratorTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.LootTests.Create_WhenMinQuantityLessThan0_ShouldFail&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b993a2fe_002D8428_002D45cb_002Dbef6_002Da265bc8fb812/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="LootGeneratorTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.LootTests.Create_WhenMinQuantityLessThan0_ShouldFail&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c300f2d2_002D8d6c_002D4a55_002Da52f_002D669a9a8dfe23/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenValidRoomKey_WhenContainingMultipleRooms_ShouldParse" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.LootGeneratorTests.GivenValidRoomKey_WhenRoomContainsLoot_LootIsReturned&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c300f2d2_002D8d6c_002D4a55_002Da52f_002D669a9a8dfe23/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenValidRoomKey_WhenContainingMultipleRooms_ShouldParse" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.LootGeneratorTests.GivenValidRoomKey_WhenRoomContainsLoot_LootIsReturned&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f9dbf11d_002Dfd64_002D4411_002D84a4_002D8c87e2e7157f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GivenValidRoomKey_WhenContainingOneRoom_ShouldParse" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests.GivenValidRoomKey_WhenContainingOneRoom_ShouldParse&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.LootTests.Create_WhenMinQuantityLessThan0_ShouldFail&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.LootTests.Create_WhenMinQuantityGreaterThanMaxQuantity_ShouldFail&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.LootTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f9dbf11d_002Dfd64_002D4411_002D84a4_002D8c87e2e7157f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GivenValidRoomKey_WhenContainingOneRoom_ShouldParse" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.RoomDecoderTests.GivenValidRoomKey_WhenContainingOneRoom_ShouldParse&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.LootTests.Create_WhenMinQuantityLessThan0_ShouldFail&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.LootTests.Create_WhenMinQuantityGreaterThanMaxQuantity_ShouldFail&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::A09A8E35-8686-435E-9B95-027BE4BCDAAC::net7.0::KaydenMiller.TableTop.LootTableGenerator.Domain.Tests.Unit.LootTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
