@@ -1,0 +1,39 @@
+﻿@using KaydenMiller.TableTop.LootTableGenerator.Domain.DescriptorAggregate
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
+@using KaydenMiller.TableTop.LootTableGenerator.Site.Extensions
+
+
+<MudCard Outlined="true">
+    <MudCardHeader>
+        @Descriptor.Name
+    </MudCardHeader>
+    <MudCardContent>
+        <ul>
+            @foreach (var lootItem in LootRepository.ReadLoot().Where(l => Descriptor.GetAvailableLootIds().Contains(l.Id)))
+            {
+                <li>(@lootItem.MinQuantity-@lootItem.MaxQuantity) x @lootItem.Name @@ @lootItem.Rarity.AsPercentString() / Item</li>
+            }
+        </ul>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Color="Color.Primary" OnClick="@(async () => await SelectDescriptor(Descriptor))">
+            Add To Table
+        </MudButton>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    [Parameter]
+    public required Descriptor Descriptor { get; set; }
+    
+    [Parameter]
+    public required ILootRepository LootRepository { get; set; }
+   
+    [Parameter]
+    public EventCallback<Descriptor> OnSelected { get; set; }
+
+    private async Task SelectDescriptor(Descriptor descriptor)
+    {
+        await OnSelected.InvokeAsync(descriptor);
+    }
+}

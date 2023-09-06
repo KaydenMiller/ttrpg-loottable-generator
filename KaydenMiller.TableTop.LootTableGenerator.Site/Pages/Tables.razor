@@ -1,7 +1,6 @@
 ﻿@page "/tables"
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.DescriptorAggregate
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
-@using KaydenMiller.TableTop.LootTableGenerator.Site.Extensions
 @using System.Collections.ObjectModel
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate
 @using KaydenMiller.TableTop.LootTableGenerator.Site.Components
@@ -12,41 +11,40 @@
     <TTPaper>
         <h3>Tables</h3>
         
-        @foreach (var descriptor in _descriptors)
-        {
-            <MudCard>
-                <MudCardHeader>
-                    @descriptor.Name
-                </MudCardHeader>
-                <MudCardContent>
-                    <ul>
-                        @foreach (var lootItem in LootRepository.ReadLoot().Where(l => descriptor.GetAvailableLootIds().Contains(l.Id)))
-                        {
-                            <li>(@lootItem.MinQuantity-@lootItem.MaxQuantity) x @lootItem.Name @@ @lootItem.Rarity.AsPercentString() / Item</li>
-                        }
-                    </ul>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Color="Color.Primary" OnClick="@(() => AddDescriptor(descriptor))">
-                        Add To Table
-                    </MudButton>
-                </MudCardActions>
-            </MudCard>
-        }
+        <MudGrid Spacing="2" Justify="Justify.Center">
+            @foreach (var descriptor in _descriptors)
+            {
+                <MudItem>
+                    <TTDescriptorCard Descriptor="descriptor" 
+                                      LootRepository="LootRepository"
+                                      OnSelected="AddDescriptor"
+                                      />
+                </MudItem>
+            }
+        </MudGrid>
     </TTPaper>
     <TTPaper>
+        <MudTable T="string" Items="_selectedDescriptors.Select(d => d.Name)" Dense="true">
+            <HeaderContent>
+                <MudTd>Descriptor</MudTd>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Descriptor">@context</MudTd>
+            </RowTemplate>
+        </MudTable>
+        
         <MudButton Color="Color.Primary" OnClick="@(async () => await Generate())">Generate</MudButton>
-       
-        <MudText>
-            @string.Join(',', _selectedDescriptors.Select(d => d.Name))
-        </MudText>
-
-        <ul>
-            @foreach (var loot in _calculatedLootItems)
-            {
-                <li>@loot.Name x @loot.CountAvailable</li>
-            }
-        </ul>
+        
+        <MudTable T="Descriptors.CalculatedLootItem" Items="_calculatedLootItems" Dense="true">
+            <HeaderContent>
+                <MudTd>Name</MudTd>
+                <MudTd>Count Available</MudTd>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Name">@context.Name</MudTd>
+                <MudTd DataLabel="Count Available">@context.CountAvailable</MudTd>
+            </RowTemplate>
+        </MudTable>
     </TTPaper>
 </MudContainer>
 
