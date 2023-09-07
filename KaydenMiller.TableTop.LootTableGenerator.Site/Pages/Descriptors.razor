@@ -11,6 +11,37 @@
 
 <MudContainer>
     <TTPaper>
+        <h3>Descriptors</h3>
+        
+        <MudTable T="Loot" Items="_availableLootItems">
+            <ColGroup>
+                <col/>
+                <col/>
+                <col/>
+                <col style="width: 100%; justify-content: end;"/>
+            </ColGroup>
+            <HeaderContent>
+                <MudTd>Name</MudTd>
+                <MudTd>Rarity</MudTd>
+                <MudTd>Min - Max</MudTd>
+                <MudTd DataLabel="Actions"></MudTd>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Name">@context.Name</MudTd>
+                <MudTd DataLabel="Rarity">@context.Rarity.AsPercentString()</MudTd>
+                <MudTd DataLabel="Min - Max" Style="text-align: center;">@context.MinQuantity - @context.MaxQuantity</MudTd>
+                <MudTd DataLabel="Actions">
+                    <MudIconButton Variant="Variant.Filled"
+                                   Color="Color.Secondary"
+                                   OnClick="@(() => AddLoot(@context.Id.ToString()))">
+                        <MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon>
+                    </MudIconButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    </TTPaper>
+    
+    <TTPaper>
         <h4>Loot To Add</h4>
         <ul>
             @foreach (var loot in @Model?.LootToAdd ?? Enumerable.Empty<Loot>())
@@ -18,7 +49,7 @@
                 <li>(@loot.MinQuantity-@loot.MaxQuantity) x @loot.Name @@ @loot.Rarity.AsPercentString() / Item</li>
             }
         </ul>
-    
+
         <h4>Modifiers To Add</h4>
         <ul>
             @foreach (var modifier in @Model?.ModifiersToAdd ?? Enumerable.Empty<Modifier>())
@@ -27,22 +58,7 @@
             }
         </ul>
     </TTPaper>
-    
-    
-    <TTPaper>
-        <h3>Descriptors</h3>
 
-        <MudSelect T="string" Label="Loot To Add" AnchorOrigin="Origin.BottomCenter"
-                   @bind-Value="@LootId">
-            @foreach (var loot in _availableLootItems)
-            {
-                <MudSelectItem Value="@(loot.Id.ToString())">@(loot.Name)</MudSelectItem>
-            }
-        </MudSelect>
-
-        <MudButton Color="Color.Primary" OnClick="@(() => AddLoot(LootId))">Add Loot Item</MudButton>
-    </TTPaper>
-    
     <TTPaper>
         <MudForm @bind-isValid="@_success" Model="@Model">
             <MudTextField T="string" Label="Descriptor Name"
@@ -61,13 +77,13 @@
             }
         </MudSelect>
         <MudButton Color="Color.Primary" OnClick="@(async () => await SelectDescriptor(DescriptorToSelect ?? ""))">Select Descriptor</MudButton>
-    
+
         @if (CurrentDescriptor is not null && _calculatedLootItems.Count > 0)
         {
             <div>
                 <h1>Descriptor</h1>
                 <h2>@CurrentDescriptor.Name</h2>
-    
+
                 <ul>
                     @foreach (var loot in _calculatedLootItems)
                     {

@@ -1,4 +1,5 @@
-﻿using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces;
+﻿using ErrorOr;
+using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces;
 using KaydenMiller.TableTop.LootTableGenerator.Domain.EquipmentAggregate;
 
 namespace KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Persistence.Repositories;
@@ -12,10 +13,18 @@ public class EquipmentRepository : IEquipmentRepository
         _dbContext = dbContext;
     }
     
-    public async Task AddEquipmentAsync(Equipment equipment)
+    public async Task<ErrorOr<Success>> AddEquipmentAsync(Equipment equipment)
     {
-        await _dbContext.Equipment.AddAsync(equipment);
-        await _dbContext.SaveChangesAsync();
+        try
+        {
+            await _dbContext.Equipment.AddAsync(equipment);
+            await _dbContext.SaveChangesAsync();
+            return new Success();
+        }
+        catch (Exception)
+        {
+            return Error.Unexpected("add-equipment-unknown", "An unknown error occured when adding equipment");
+        }
     }
 
     public IQueryable<Equipment> ReadEquipment()
@@ -23,9 +32,17 @@ public class EquipmentRepository : IEquipmentRepository
         return _dbContext.Equipment.AsQueryable();
     }
 
-    public async Task UpdateEquipmentAsync(Equipment equipment)
+    public async Task<ErrorOr<Success>> UpdateEquipmentAsync(Equipment equipment)
     {
-        _dbContext.Update(equipment);
-        await _dbContext.SaveChangesAsync();
+        try
+        {
+            _dbContext.Update(equipment);
+            await _dbContext.SaveChangesAsync();
+            return new Success();
+        }
+        catch (Exception)
+        {
+            return Error.Unexpected("update-equipment-unexpected", "An unknown error occured when updating equipment");
+        }
     }
 }

@@ -2,25 +2,37 @@
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
 @using KaydenMiller.TableTop.LootTableGenerator.Site.Components
 @using Throw
+@using System.Text.RegularExpressions
+@using ErrorOr
 @inject IEquipmentRepository EquipmentRepository
+@inject ISnackbar Snackbar
 
 <TTPaper>
    <h3>Equipment</h3>
    
-   <MudForm @ref="_form" @bind-isValid="@_success" Model="@Model">
+   <MudForm @ref="_form" @bind-isValid="@_success" Model="@Model" >
        <MudTextField T="string"
-                     Label="Code"
-                     Required="true"
-                     RequiredError="Equipment Code is required"
-                     @bind-Value="@Model!.Code"/>
-       <MudTextField T="string"
+                     Class="mb-5"
+                     autocomplete="off"
+                     InputType="InputType.Text"
                      Label="Name"
                      Required="true"
                      RequiredError="Name"
+                     TextChanged="@(() => OnNameChanged(Model?.Name ?? ""))"
                      @bind-Value="@Model!.Name"></MudTextField>
+       <MudTextField T="string"
+                     Class="mb-5"
+                     autocomplete="off"
+                     InputType="InputType.Text"
+                     Placeholder="simple-weapon-short-sword"
+                    Label="Code"
+                    Required="true"
+                    RequiredError="Equipment Code is required"
+                    @bind-Value="@Model!.Code"/>
    </MudForm>
    
-   <MudButton Color="Color.Primary"
+    <MudButton Color="Color.Primary"
+               Class="mb-5"
               Variant="Variant.Filled"
               Disabled="@(!_success)"
               OnClick="@Submit">
@@ -33,7 +45,7 @@
 
     protected override void OnInitialized() => Model ??= new();
 
-    private MudForm _form;
+    private MudForm _form = null!;
     private bool _success;
 
     private async Task Submit()
@@ -42,10 +54,37 @@
         Model?.Code.ThrowIfNull();
         Model?.Name.ThrowIfNull();
 
-        await EquipmentRepository.AddEquipmentAsync(new TableTop.LootTableGenerator.Domain.EquipmentAggregate.Equipment(
+        var result = await EquipmentRepository.AddEquipmentAsync(new TableTop.LootTableGenerator.Domain.EquipmentAggregate.Equipment(
             Model!.Code,
             Model.Name
             ));
+
+        if (!result.IsError)
+        {
+            Snackbar.Add("Equipment Added Successfully", Severity.Success);
+        }
+        else
+        {
+            Snackbar.Add("Equipment Failed to be Added", Severity.Error);
+        }
+    }
+
+    private ErrorOr<Success> OnNameChanged(string name)
+    {
+        if (Model is not null)
+        {
+            Model.Name = name;
+        }
+        
+        var cleanedName = name.Trim().ToLowerInvariant();
+        var formattedCode = Regex.Replace(cleanedName, @"\s+", "-");
+
+        if (Model is not null)
+        {
+            Model.Code = formattedCode;
+            return new Success();
+        }
+        return Error.Failure("No model was available to set");
     }
 
     public class CreateEquipmentForm 
