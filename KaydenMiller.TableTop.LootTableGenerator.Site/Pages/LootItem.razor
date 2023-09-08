@@ -13,7 +13,7 @@
     <TTPaper>
         <h3>Loot</h3>
         
-        <MudForm @ref="_form" @bind-isValid="@success" @bind-Errors="@errors" Model="@LootFormModel">
+        <MudForm @ref="_form" @bind-isValid="@_success" @bind-Errors="@_errors" Model="@LootFormModel">
             <MudSelect T="string" Label="Backing Equipment" AnchorOrigin="Origin.BottomCenter" 
                        @bind-Value="@LootFormModel!.EquipmentId">
                 @foreach (var equip in _availableEquipment)
@@ -26,7 +26,7 @@
             <MudSelect T="RarityType"
                        Label="Rarity Level" 
                        AnchorOrigin="Origin.BottomCenter"
-                       ValueChanged="@((v) => LootFormModel.Rarity = v.ToPercentage().ToInteger())">
+                       ValueChanged="@((v) => LootFormModel!.Rarity = v.ToPercentage().ToInteger())">
                 <MudSelectItem Value="@(RarityType.Common)">@(nameof(RarityType.Common))</MudSelectItem>
                 <MudSelectItem Value="@(RarityType.Uncommon)">@(nameof(RarityType.Uncommon))</MudSelectItem>
                 <MudSelectItem Value="@(RarityType.Rare)">@(nameof(RarityType.Rare))</MudSelectItem>
@@ -39,13 +39,23 @@
                           @bind-Value="LootFormModel!.MinQuantity"/>
             <MudTextField T="int" Label="Max Quantity" Required="true" RequiredError="Max Quantity is required"
                           @bind-Value="LootFormModel!.MaxQuantity"/>
+            
+            <div>
+                <span>
+                    <MudTextField T="string" Label="Tag" @bind-Value="_tag" Style="width: 50%;"/>
+                    <MudIconButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="@(() => LootFormModel!.TagsToAssign.Add(_tag.ThrowIfNull().Throw().IfEmpty()))">
+                        <MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon>
+                    </MudIconButton>
+                </span>
+                <MudText>@(string.Join(", ", LootFormModel?.TagsToAssign ?? Enumerable.Empty<string>()))</MudText>
+            </div>
 
-            <MudButton Color="Color.Primary" Disabled="@(!success)" OnClick="@Submit" Class="ml-auto">Create Loot</MudButton>
+            <MudButton Color="Color.Primary" Disabled="@(!_success)" OnClick="@Submit" Class="ml-auto">Create Loot</MudButton>
         </MudForm>
     </TTPaper>
     <TTPaper>
-        <MudText Typo="Typo.subtitle2">@($"Errors: ({errors.Length})")</MudText>
-        @foreach (var error in errors)
+        <MudText Typo="Typo.subtitle2">@($"Errors: ({_errors.Length})")</MudText>
+        @foreach (var error in _errors)
         {
             <MudText Color="@Color.Error">@error</MudText>
         }
@@ -53,12 +63,12 @@
 </MudContainer>
 
 @code {
-    private bool success;
-    private string[] errors =  { };
+    private bool _success;
+    private string[] _errors =  { };
     private List<TableTop.LootTableGenerator.Domain.EquipmentAggregate.Equipment> _availableEquipment = new();
-    private RarityType _selectedRarity = RarityType.Common;
+    private string? _tag;
 
-    private MudForm _form;
+    private MudForm _form = null!;
     
     public CreateLootForm? LootFormModel { get; set; }
 
@@ -84,6 +94,7 @@
             percentResult.Value,
             LootFormModel.MinQuantity,
             LootFormModel.MaxQuantity,
+            LootFormModel.TagsToAssign,
             null
             );
         await LootRepository.CreateLootAsync(lootResult.Value);
@@ -91,10 +102,11 @@
 
     public class CreateLootForm
     {
-        public string EquipmentId { get; set; }
-        public string Name { get; set; }
+        public string EquipmentId { get; set; } = null!;
+        public string Name { get; set; } = null!;
         public int Rarity { get; set; }
         public int MaxQuantity { get; set; }
         public int MinQuantity { get; set; }
+        public HashSet<string> TagsToAssign { get; set; } = new();
     }
 }

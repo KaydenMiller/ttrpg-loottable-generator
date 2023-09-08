@@ -1,0 +1,2 @@
+﻿`dotnet ef migrations add -s ../KaydenMiller.TableTop.LootTableGenerator.Site/KaydenMiller.TableTop.LootTableGenerator.Site.csproj AddDescriptorNameColumn`  
+`dotnet ef database update  -s ../KaydenMiller.TableTop.LootTableGenerator.Site/KaydenMiller.TableTop.LootTableGenerator.Site.csproj`

@@ -12,6 +12,7 @@ public class Loot : AggregateRoot
     private readonly Percentage _rarity;
     private readonly int _maxQuantity;
     private readonly int _minQuantity;
+    private readonly List<string> _assignedTags;
     
     public string Name => _name;
     /// <summary>
@@ -33,6 +34,7 @@ public class Loot : AggregateRoot
         Percentage rarity,
         int maxQuantity,
         int minQuantity,
+        IEnumerable<string>? assignedTags = null,
         Guid? id = null) : base(id ?? Guid.NewGuid())
     {
         _equipmentId = equipmentId;
@@ -42,6 +44,19 @@ public class Loot : AggregateRoot
            .IfLessThan(0)
            .IfGreaterThan(maxQuantity);
         _maxQuantity = maxQuantity;
+        _assignedTags = assignedTags?.ToList() ?? new List<string>();
+    }
+
+    public ErrorOr<Success> AssignTag(string tag)
+    {
+        _assignedTags.Add(tag);
+        return new Success();
+    }
+
+    public ErrorOr<Success> UnassignTag(string tag)
+    {
+        _assignedTags.Remove(tag);
+        return new Success();
     }
 
     /// <summary>
@@ -88,6 +103,7 @@ public class Loot : AggregateRoot
         Percentage rarity,
         int minQuantity,
         int maxQuantity,
+        IEnumerable<string>? assignedTags,
         Guid? id)
     {
         if (minQuantity < 0)
@@ -106,6 +122,7 @@ public class Loot : AggregateRoot
             rarity,
             maxQuantity,
             minQuantity,
+            assignedTags,
             id);
     }
 }

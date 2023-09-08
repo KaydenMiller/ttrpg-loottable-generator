@@ -15,6 +15,9 @@ public class LootConfiguration : IEntityTypeConfiguration<Loot>
         builder.Property(l => l.Id)
            .ValueGeneratedNever();
 
+        builder.Property<List<string>>("_assignedTags")
+          .HasColumnName("AssignedTags")
+          .HasListOfStringsConverter();
         builder.Property<Percentage>("_rarity")
           .HasColumnName("RarityPercentage")
           .HasPercentageConverter()

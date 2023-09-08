@@ -12,7 +12,8 @@ public static class LootFactory
         string? name = null,
         Percentage? rarity = null,
         int? minQuantity = null,
-        int? maxQuantity = null)
+        int? maxQuantity = null,
+        IEnumerable<string>? assignedTags = null)
     {
         return Loot.Create(
             equipmentId ?? TestConstants.Constants.Loot.EquipmentId, 
@@ -20,6 +21,7 @@ public static class LootFactory
             rarity ?? TestConstants.Constants.Loot.Rarity,
             minQuantity ?? TestConstants.Constants.Loot.MinQuantity,
             maxQuantity ?? TestConstants.Constants.Loot.MaxQuantity,
+            assignedTags ?? TestConstants.Constants.Loot.AssignedTags,
             id ?? TestConstants.Constants.Loot.Id
             );
     }
