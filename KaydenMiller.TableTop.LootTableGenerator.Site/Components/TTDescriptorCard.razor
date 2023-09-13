@@ -10,7 +10,7 @@
     </MudCardHeader>
     <MudCardContent>
         <ul>
-            @foreach (var lootItem in LootRepository.ReadLoot().Where(l => Descriptor.GetAvailableLootIds().Contains((LootId)l.Id)))
+            @foreach (var lootItem in LootRepository.ReadLoot().Where(l => Descriptor.GetAvailableLootIds().Select(id => id.Value).Contains(l.Id)))
             {
                 <li>(@lootItem.MinQuantity-@lootItem.MaxQuantity) x @lootItem.Name @@ @lootItem.Rarity.AsPercentString() / Item</li>
             }
