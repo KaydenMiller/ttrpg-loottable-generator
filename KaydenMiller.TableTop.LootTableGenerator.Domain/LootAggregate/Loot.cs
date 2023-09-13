@@ -1,13 +1,14 @@
 using ErrorOr;
 using KaydenMiller.TableTop.LootTableGenerator.Domain.Common;
 using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects;
+using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects.Identifiers;
 using Throw;
 
 namespace KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate;
 
 public class Loot : AggregateRoot
 {
-    private readonly Guid _equipmentId;
+    private readonly EquipmentId _equipmentId;
     private readonly string _name;
     private readonly Percentage _rarity;
     private readonly int _maxQuantity;
@@ -29,13 +30,13 @@ public class Loot : AggregateRoot
 
     private Loot() {}
     public Loot(
-        Guid equipmentId,
+        EquipmentId equipmentId,
         string name,
         Percentage rarity,
         int maxQuantity,
         int minQuantity,
         IEnumerable<string>? assignedTags = null,
-        Guid? id = null) : base(id ?? Guid.NewGuid())
+        LootId? id = null) : base(id ?? Guid.NewGuid())
     {
         _equipmentId = equipmentId;
         _name = name;
@@ -98,13 +99,13 @@ public class Loot : AggregateRoot
     }
 
     public static ErrorOr<Loot> Create(
-        Guid equipmentId,
+        EquipmentId equipmentId,
         string name,
         Percentage rarity,
         int minQuantity,
         int maxQuantity,
         IEnumerable<string>? assignedTags,
-        Guid? id)
+        LootId? id)
     {
         if (minQuantity < 0)
         {

@@ -1,4 +1,6 @@
 ﻿using KaydenMiller.TableTop.LootTableGenerator.Domain.EquipmentAggregate;
+using KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Persistence.Converters;
+using KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Persistence.Converters.IdConverters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,6 +10,9 @@ public class EquipmentConfigurations : IEntityTypeConfiguration<Equipment>
 {
     public void Configure(EntityTypeBuilder<Equipment> builder)
     {
+        builder.Property(e => e.Id)
+           .HasGuidConverter();
+        
         builder.HasKey(e => e.Id);
         
         builder.Property(e => e.Id)

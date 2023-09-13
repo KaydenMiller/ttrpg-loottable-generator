@@ -1,4 +1,5 @@
-﻿using KaydenMiller.TableTop.LootTableGenerator.Domain.RoomAggregate;
+﻿using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects.Identifiers;
+using KaydenMiller.TableTop.LootTableGenerator.Domain.LootTableAggregate;
 using KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Persistence.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -9,16 +10,19 @@ public class LootTableConfigurations : IEntityTypeConfiguration<LootTable>
 {
     public void Configure(EntityTypeBuilder<LootTable> builder)
     {
+        builder.Property(lt => lt.Id)
+           .HasGuidConverter();
+        
         builder.HasKey(lt => lt.Id);
 
         builder.Property(lt => lt.Id)
            .ValueGeneratedNever();
 
-        builder.Property<List<Guid>>("_descriptorIds")
+        builder.Property<List<DescriptorId>>("_descriptorIds")
            .HasColumnName("DescriptorIds")
-           .HasListOfIdsConverter();
-        builder.Property<List<Guid>>("_modifierIds")
+           .HasColumnType("jsonb");
+        builder.Property<List<ModifierId>>("_modifierIds")
            .HasColumnName("ModifierIds")
-           .HasListOfIdsConverter();
+           .HasColumnType("jsonb");
     }
 }

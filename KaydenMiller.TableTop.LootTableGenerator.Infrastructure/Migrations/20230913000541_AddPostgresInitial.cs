@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects.Identifiers;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class AddPostgresInitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,9 +16,10 @@ namespace KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Migrations
                 name: "Descriptors",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    AvailableLootIds = table.Column<string>(type: "TEXT", nullable: false),
-                    ModifierIds = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    AvailableLootIds = table.Column<HashSet<LootId>>(type: "jsonb", nullable: false),
+                    ModifierIds = table.Column<HashSet<ModifierId>>(type: "jsonb", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,9 +30,9 @@ namespace KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Migrations
                 name: "Equipment",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Code = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Code = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,11 +43,13 @@ namespace KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Migrations
                 name: "Loot",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    EquipmentId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    MaxQuantity = table.Column<int>(type: "INTEGER", nullable: false),
-                    MinQuantity = table.Column<int>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    AssignedTags = table.Column<List<string>>(type: "jsonb", nullable: false),
+                    EquipmentId = table.Column<string>(type: "text", nullable: false),
+                    MaxQuantity = table.Column<int>(type: "integer", nullable: false),
+                    MinQuantity = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    RarityPercentage = table.Column<float>(type: "real", nullable: false, defaultValue: 0.5f)
                 },
                 constraints: table =>
                 {
@@ -56,9 +60,9 @@ namespace KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Migrations
                 name: "LootTables",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DescriptorIds = table.Column<string>(type: "TEXT", nullable: false),
-                    ModifierIds = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    DescriptorIds = table.Column<List<DescriptorId>>(type: "jsonb", nullable: false),
+                    ModifierIds = table.Column<List<ModifierId>>(type: "jsonb", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,11 +73,11 @@ namespace KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Migrations
                 name: "Modifiers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    MaxQuantityModifier = table.Column<int>(type: "INTEGER", nullable: false),
-                    MinQuantityModifier = table.Column<int>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    QuantityMultiplier = table.Column<float>(type: "REAL", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    MaxQuantityModifier = table.Column<int>(type: "integer", nullable: false),
+                    MinQuantityModifier = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    QuantityMultiplier = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {

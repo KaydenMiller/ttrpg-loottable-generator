@@ -1,4 +1,5 @@
 ﻿using KaydenMiller.TableTop.LootTableGenerator.Domain.Common;
+using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects.Identifiers;
 
 namespace KaydenMiller.TableTop.LootTableGenerator.Domain.EquipmentAggregate;
 
@@ -14,7 +15,7 @@ public class Equipment : AggregateRoot
     public Equipment(
         string code,
         string name,
-        Guid? id = null) : base(id ?? Guid.NewGuid())
+        EquipmentId? id = null) : base(id ?? Guid.NewGuid())
     {
         Code = code;
         Name = name;

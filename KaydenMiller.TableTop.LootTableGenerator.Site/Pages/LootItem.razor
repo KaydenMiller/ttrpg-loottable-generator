@@ -2,6 +2,7 @@
 @using Throw
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects.Identifiers
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate
 @using KaydenMiller.TableTop.LootTableGenerator.Site.Data
 @using KaydenMiller.TableTop.LootTableGenerator.Site.Extensions
@@ -88,8 +89,9 @@
         LootFormModel.ThrowIfNull();
 
         var percentResult = Percentage.FromInt(LootFormModel.Rarity);
+        var equipmentId = (EquipmentId)Guid.Parse(LootFormModel.EquipmentId);
         var lootResult = Loot.Create(
-            Guid.Parse(LootFormModel.EquipmentId),
+            equipmentId,
             LootFormModel.Name,
             percentResult.Value,
             LootFormModel.MinQuantity,

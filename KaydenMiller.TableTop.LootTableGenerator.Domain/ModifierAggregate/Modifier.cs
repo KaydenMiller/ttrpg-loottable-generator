@@ -1,4 +1,5 @@
 using KaydenMiller.TableTop.LootTableGenerator.Domain.Common;
+using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects.Identifiers;
 using Throw;
 
 namespace KaydenMiller.TableTop.LootTableGenerator.Domain.ModifierAggregate;
@@ -16,7 +17,7 @@ public class Modifier : Entity
         int minQuantityModifier,
         int maxQuantityModifier,
         float quantityMultiplier,
-        Guid? id = null) : base(id ?? Guid.NewGuid())
+        ModifierId? id = null) : base(id ?? Guid.NewGuid())
     {
         _name = name;
         _minQuantityModifier = minQuantityModifier;

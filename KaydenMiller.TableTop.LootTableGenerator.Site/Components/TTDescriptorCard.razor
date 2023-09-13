@@ -1,5 +1,6 @@
 ﻿@using KaydenMiller.TableTop.LootTableGenerator.Domain.DescriptorAggregate
 @using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.Interfaces
+@using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects.Identifiers
 @using KaydenMiller.TableTop.LootTableGenerator.Site.Extensions
 
 
@@ -9,7 +10,7 @@
     </MudCardHeader>
     <MudCardContent>
         <ul>
-            @foreach (var lootItem in LootRepository.ReadLoot().Where(l => Descriptor.GetAvailableLootIds().Contains(l.Id)))
+            @foreach (var lootItem in LootRepository.ReadLoot().Where(l => Descriptor.GetAvailableLootIds().Contains((LootId)l.Id)))
             {
                 <li>(@lootItem.MinQuantity-@lootItem.MaxQuantity) x @lootItem.Name @@ @lootItem.Rarity.AsPercentString() / Item</li>
             }

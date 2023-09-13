@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace KaydenMiller.TableTop.LootTableGenerator.Domain.Common;
 
 public abstract class Entity

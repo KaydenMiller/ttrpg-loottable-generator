@@ -1,4 +1,5 @@
 ﻿using KaydenMiller.TableTop.LootTableGenerator.Domain.ModifierAggregate;
+using KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Persistence.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,6 +9,9 @@ public class ModifierConfigurations : IEntityTypeConfiguration<Modifier>
 {
     public void Configure(EntityTypeBuilder<Modifier> builder)
     {
+        builder.Property(m => m.Id)
+           .HasGuidConverter();
+        
         builder.HasKey(m => m.Id);
 
         builder.Property(m => m.Id)

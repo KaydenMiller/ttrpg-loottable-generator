@@ -1,27 +1,29 @@
 using ErrorOr;
 using KaydenMiller.TableTop.LootTableGenerator.Domain.Common;
+using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects.Identifiers;
+using KaydenMiller.TableTop.LootTableGenerator.Domain.RoomAggregate;
 
-namespace KaydenMiller.TableTop.LootTableGenerator.Domain.RoomAggregate;
+namespace KaydenMiller.TableTop.LootTableGenerator.Domain.LootTableAggregate;
 
 public class LootTable : AggregateRoot
 {
-    private readonly List<Guid> _descriptorIds;
-    private readonly List<Guid> _modifierIds;
+    private readonly List<DescriptorId> _descriptorIds;
+    private readonly List<ModifierId> _modifierIds;
     
     private LootTable() {}
     public LootTable(
-        IEnumerable<Guid> descriptorIds,
-        IEnumerable<Guid> modifierIds,
-        Guid? id = null) : base(id ?? Guid.NewGuid())
+        IEnumerable<DescriptorId> descriptorIds,
+        IEnumerable<ModifierId> modifierIds,
+        LootTableId? id = null) : base(id ?? Guid.NewGuid())
     {
         _descriptorIds = descriptorIds.ToList();
         _modifierIds = modifierIds.ToList();
     }
 
     public static ErrorOr<LootTable> Create(
-        IEnumerable<Guid> descriptorIds,
-        IEnumerable<Guid> modifierIds,
-        Guid? id = null)
+        IEnumerable<DescriptorId> descriptorIds,
+        IEnumerable<ModifierId> modifierIds,
+        LootTableId? id = null)
     {
         return new LootTable(
             descriptorIds,

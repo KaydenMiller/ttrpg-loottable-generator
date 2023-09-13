@@ -17,7 +17,7 @@ public static class DependencyInjection
     public static IServiceCollection AddPersistence(this IServiceCollection services)
     {
         services.AddDbContext<LootTableGeneratorDbContext>(options =>
-            options.UseSqlite("Data Source = LootTableGenerator.db"));
+            options.UseNpgsql("Host=localhost;Port=5432;Database=LootTableGenerator;Username=postgres;Password=ZAQ!2wsxZAQ!2wsx;"));
 
         services.AddScoped<IEquipmentRepository, EquipmentRepository>();
         services.AddScoped<ILootRepository, LootRepository>();

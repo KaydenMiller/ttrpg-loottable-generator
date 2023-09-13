@@ -1,4 +1,5 @@
 ﻿using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects;
+using KaydenMiller.TableTop.LootTableGenerator.Domain.Common.ValueObjects.Identifiers;
 using KaydenMiller.TableTop.LootTableGenerator.Domain.LootAggregate;
 using KaydenMiller.TableTop.LootTableGenerator.Infrastructure.Persistence.Converters;
 using Microsoft.EntityFrameworkCore;
@@ -10,19 +11,22 @@ public class LootConfiguration : IEntityTypeConfiguration<Loot>
 {
     public void Configure(EntityTypeBuilder<Loot> builder)
     {
+        builder.Property(l => l.Id)
+           .HasGuidConverter();
+        
         builder.HasKey(l => l.Id);
 
         builder.Property(l => l.Id)
            .ValueGeneratedNever();
 
         builder.Property<List<string>>("_assignedTags")
-          .HasColumnName("AssignedTags")
-          .HasListOfStringsConverter();
+           .HasColumnName("AssignedTags")
+           .HasColumnType("jsonb");
         builder.Property<Percentage>("_rarity")
           .HasColumnName("RarityPercentage")
           .HasPercentageConverter()
            .HasDefaultValue(Percentage.FromFloat(0.5f).Value);
-        builder.Property<Guid>("_equipmentId")
+        builder.Property<EquipmentId>("_equipmentId")
            .HasColumnName("EquipmentId");
         builder.Property<string>("_name")
            .HasColumnName("Name");

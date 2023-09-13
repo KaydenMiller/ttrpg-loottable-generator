@@ -71,7 +71,7 @@
 
     <TTPaper>
         <MudSelect T="string" @bind-Value="DescriptorToSelect" AnchorOrigin="Origin.BottomCenter" Label="Descriptor To Select">
-            @foreach (var descriptor in DescriptorRepository.ReadDescriptors())
+            @foreach (var descriptor in _availableDescriptors)
             {
                 <MudSelectItem Value="@descriptor.Id.ToString()">@descriptor.Name</MudSelectItem>
             }
@@ -100,6 +100,8 @@
 </MudContainer>
 
 @code {
+    private IEnumerable<Descriptor> _availableDescriptors = Enumerable.Empty<Descriptor>();
+
     public Descriptor? CurrentDescriptor { get; set; }
     public string? DescriptorToSelect { get; set; }
     
@@ -110,6 +112,7 @@
     {
         Model ??= new();
         _availableLootItems = GetLoot();
+        _availableDescriptors = DescriptorRepository.ReadDescriptors().ToList();
     }
 
     private bool _success;
